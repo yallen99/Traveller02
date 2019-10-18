@@ -2,9 +2,9 @@ package core.game_engine;
 import java.util.ArrayList;
 import processing.core.PApplet;
 
-public class object_keeper {
+public class ObjectManager {
     public PApplet parent;
-    public object_keeper(PApplet p){
+    public ObjectManager(PApplet p){
         this.parent = p; }
 
         public ArrayList objects = new ArrayList(0);
