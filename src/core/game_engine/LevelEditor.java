@@ -8,6 +8,7 @@ public class LevelEditor {
     private OptionSelector optionSelector;
     private ObjectManager objectManager;
     private Player player;
+    private FinishPoint finishPoint;
 
 
     public LevelEditor(PApplet p){
@@ -35,6 +36,36 @@ public class LevelEditor {
             gameObject.nameEntity();
         }
     }
+
+    public void snapObject(float x,float y){
+        int roundedX = parent.round(x/50)*50;
+        int roundedY = parent.round(y/50)*50;
+        if(roundedX>25 && roundedX<775 &&
+                roundedY>25 && roundedY<725) {
+            if (parent.mousePressed && optionSelector.SelectorManager() == 1) {
+                 Platform platform = new Platform(parent);
+                 platform.createObject(roundedX,roundedY);
+            }
+
+            if(parent.mousePressed && optionSelector.SelectorManager() == 2 && player==null) {
+                     player = new Player(parent);
+                     player.createObject(roundedX,roundedY);
+
+            }else if(optionSelector.SelectorManager() == 2 && player!=null){
+                System.out.println("THERE IS ALREADY A PLAYER IN THE SCENE!");
+            }
+
+            //create finish Point
+            if(parent.mousePressed && optionSelector.SelectorManager() == 3 && finishPoint==null){
+                finishPoint = new FinishPoint(parent);
+                finishPoint.createObject(roundedX,roundedY);
+            }
+            else if(parent.mousePressed && optionSelector.SelectorManager() == 3 && finishPoint!=null){
+                System.out.println("THERE IS ALREADY A FINISH POINT IN THE SCENE!");
+            }
+
+            }
+        }
 
 
 

@@ -17,13 +17,13 @@ public class game_manager {
     public void startup(){
         grid.horizontal_grid();
         grid.vertical_grid();
-        levelEditor.initializeGame();
-       // game_object.Initialize();
+
 
     }
     public void update(){
         //game_object.snapObject(parent.mouseX, parent.mouseY);
         grid.margins();
+        levelEditor.snapObject(parent.mouseX,parent.mouseY);
     }
 
 }
