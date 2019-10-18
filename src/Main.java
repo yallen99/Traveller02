@@ -8,7 +8,7 @@ public class Main extends PApplet
 
     public void setup(){
         background(0);
-        frameRate(5);
+        frameRate(30);
         test_game = new test_game(this);
         test_game.start_game();
     }

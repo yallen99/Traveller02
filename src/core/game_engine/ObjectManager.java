@@ -3,9 +3,6 @@ import java.util.ArrayList;
 import processing.core.PApplet;
 
 public class ObjectManager {
-    public PApplet parent;
-    public ObjectManager(PApplet p){
-        this.parent = p; }
 
         public ArrayList objects = new ArrayList(0);
 

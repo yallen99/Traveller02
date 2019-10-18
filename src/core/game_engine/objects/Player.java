@@ -1,21 +1,22 @@
-package core.game_engine;
+package core.game_engine.objects;
 
+import core.game_engine.GameObject;
 import processing.core.PApplet;
 
 public class Player extends GameObject {
-    public Player(PApplet p) {
-        super(p);
+    public Player(PApplet p,int x,int y) {
+        super(p,x,y);
     }
 
     @Override
-    void createObject(int x, int y) {
+    public void createObject() {
         parent.fill(255, 255, 0);
         parent.noStroke();
         parent.ellipse(x, y, 25, 25);
     }
 
     @Override
-    void nameEntity() {
+    public void nameEntity() {
         System.out.println("Player");
     }
 
