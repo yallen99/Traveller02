@@ -1,10 +1,12 @@
 package core.game_engine;
 
 import core.game_engine.objects.FinishPoint;
+import core.game_engine.objects.Key;
 import core.game_engine.objects.Platform;
 import core.game_engine.objects.Player;
 import processing.core.PApplet;
 
+import javax.naming.ldap.Control;
 import java.util.ArrayList;
 
 public class LevelEditor {
@@ -14,6 +16,7 @@ public class LevelEditor {
     private Player player;
     private FinishPoint finishPoint;
     private ArrayList<GameObject> objectsOnScreen;
+    private boolean clearing = false;
 
     public LevelEditor(PApplet p){
         this.parent = p;
@@ -41,43 +44,56 @@ public class LevelEditor {
 //        }
 //    }
 
-    public void snapObject(float x,float y){
+    public void snapObject(float x,float y) {
         System.out.println(objectsOnScreen.size());
-        int roundedX = PApplet.round(x/50)*50;
-        int roundedY = PApplet.round(y/50)*50;
-        if(roundedX>25 && roundedX<775 &&
-                roundedY>25 && roundedY<725) {
-            if (parent.mousePressed && optionSelector.SelectorManager() == 1) {
-                 if(isGridEmpty(roundedX,roundedY)){
-                     Platform platform = new Platform(parent,roundedX,roundedY);
-                     objectsOnScreen.add(platform);
-                 }
 
+
+        int roundedX = PApplet.round(x / 50) * 50;
+        int roundedY = PApplet.round(y / 50) * 50;
+
+        if (roundedX > 25 && roundedX < 775 && roundedY > 25 && roundedY < 725) {
+
+            //create platform
+            if (parent.mousePressed && optionSelector.SelectorManager() == 1) {
+                if (isGridEmpty(roundedX, roundedY)) {
+                    Platform platform = new Platform(parent, roundedX, roundedY);
+                    objectsOnScreen.add(platform);
+
+                }
             }
 
-            if(parent.mousePressed && optionSelector.SelectorManager() == 2 && player==null) {
-                if(isGridEmpty(roundedX,roundedY)){
-                     player = new Player(parent,roundedX,roundedY);
-                     objectsOnScreen.add(player);
+            //create player
+            if (parent.mousePressed && optionSelector.SelectorManager() == 2 && player == null) {
+                if (isGridEmpty(roundedX, roundedY)) {
+                    player = new Player(parent, roundedX, roundedY);
+                    objectsOnScreen.add(player);
+
                 }
 
-            }else if(optionSelector.SelectorManager() == 2 && player!=null){
+            } else if (optionSelector.SelectorManager() == 2 && player != null) {
                 System.out.println("THERE IS ALREADY A PLAYER IN THE SCENE!");
             }
 
             //create finish Point
-            if(parent.mousePressed && optionSelector.SelectorManager() == 3 && finishPoint==null){
-                if(isGridEmpty(roundedX,roundedY)) {
+            if (parent.mousePressed && optionSelector.SelectorManager() == 3 && finishPoint == null) {
+                if (isGridEmpty(roundedX, roundedY)) {
                     finishPoint = new FinishPoint(parent, roundedX, roundedY);
                     objectsOnScreen.add(finishPoint);
+
                 }
-            }
-            else if(parent.mousePressed && optionSelector.SelectorManager() == 3 && finishPoint!=null){
+            } else if (parent.mousePressed && optionSelector.SelectorManager() == 3 && finishPoint != null) {
                 System.out.println("THERE IS ALREADY A FINISH POINT IN THE SCENE!");
             }
 
+            //create key
+            if (parent.mousePressed && optionSelector.SelectorManager() == 4) {
+                if (isGridEmpty(roundedX, roundedY)) {
+                    Key key = new Key(parent, roundedX, roundedY);
+                    objectsOnScreen.add(key);
+                }
             }
         }
+    }
 
     private boolean isGridEmpty(int x,int y) {
         for(GameObject gameObject : objectsOnScreen){
@@ -88,6 +104,26 @@ public class LevelEditor {
         }
         return true;
     }
+    private boolean isObjectOnScreen(){
+        for(GameObject gameObject : objectsOnScreen){
+            if(objectsOnScreen.size()>=1){
+                return true;
+            }
+        }
+        return false;
+    }
 
-
+    public void ClearLastObject(){
+        if (optionSelector.SelectorManager() == 5 && isObjectOnScreen()) {
+                if(!clearing && parent.keyCode == 90) {
+                    GameObject toRemove = objectsOnScreen.get(objectsOnScreen.size() - 1);
+                    toRemove.coverMe();
+                objectsOnScreen.remove(toRemove);
+                clearing = true;
+                }
+        }
+        if(parent.keyCode == 17){
+            clearing = false;
+        }
+    }
 }

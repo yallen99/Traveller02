@@ -11,11 +11,10 @@ public class Platform extends GameObject {
 
     @Override
     public void createObject() {
-        parent.fill(255, 0, 0);
+        parent.fill(163, 116, 34);
         parent.rectMode(parent.CENTER);
         parent.noStroke();
         parent.rect(x, y, 50, 50);
-        nameEntity();
     }
 
     @Override
@@ -23,5 +22,10 @@ public class Platform extends GameObject {
         System.out.println("Sunt platforma haha");
     }
 
-
+    public void CoverMe(){
+        parent.fill(0);
+        parent.rectMode(parent.CENTER);
+        parent.noStroke();
+        parent.rect(x, y, 50, 50);
+    }
 }

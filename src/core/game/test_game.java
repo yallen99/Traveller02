@@ -28,11 +28,9 @@ public class test_game {
     }
 
     public void update_game(){
-       // parent.background(0);
         player_input.check_input();
         game_manager.update();
         optionSelector.CreatorUI();
-       // player_controller.create_player();
 
     }
 
