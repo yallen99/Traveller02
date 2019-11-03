@@ -4,12 +4,12 @@ import core.game_engine.input_commands.Moveable;
 import processing.core.PApplet;
 import processing.core.PVector;
 
-public class player_controller implements Moveable {
+public class PlayerController implements Moveable {
     PApplet parent;
     int x = 300, y = 300;
     public PVector position;
 
-    public player_controller(PApplet p, int x, int y) {
+    public PlayerController(PApplet p, int x, int y) {
         parent = p;
         this.position = new PVector(x, y, 0);
     }

@@ -4,6 +4,7 @@ import core.game_engine.GameObject;
 import processing.core.PApplet;
 
 public class Player extends GameObject {
+    ObjectTags tag = ObjectTags.PLAYER;
     public Player(PApplet p,int x,int y) {
         super(p,x,y);
     }

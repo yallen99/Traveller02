@@ -10,10 +10,10 @@ public class Main extends PApplet
         background(0);
         frameRate(30);
         test_game = new test_game(this);
-        test_game.start_game();
+        test_game.startGame();
     }
     public void draw(){
-        test_game.update_game();
+        test_game.updateGame();
     }
 
     public void keyPressed(){

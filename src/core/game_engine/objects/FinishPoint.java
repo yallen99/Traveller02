@@ -3,7 +3,7 @@ package core.game_engine.objects;
 import processing.core.PApplet;
 
 public class FinishPoint extends Platform {
-
+    ObjectTags tag = ObjectTags.FINISH;
     public FinishPoint(PApplet p,int x,int y) {
         super(p,x,y);
     }

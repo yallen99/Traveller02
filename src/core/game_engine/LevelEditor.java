@@ -1,12 +1,12 @@
 package core.game_engine;
 
+import core.OptionSelector;
 import core.game_engine.objects.FinishPoint;
 import core.game_engine.objects.Key;
 import core.game_engine.objects.Platform;
 import core.game_engine.objects.Player;
 import processing.core.PApplet;
 
-import javax.naming.ldap.Control;
 import java.util.ArrayList;
 
 public class LevelEditor {

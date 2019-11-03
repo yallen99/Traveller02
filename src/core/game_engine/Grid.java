@@ -1,5 +1,6 @@
 package core.game_engine;
 import processing.core.PApplet;
+import processing.core.PConstants;
 
 
 public class Grid {
@@ -8,9 +9,15 @@ public class Grid {
         this.parent = p;
     }
 
-    public void initializeGrid(){
-        parent.stroke(100);
+    public void EditorBackground(){
+        parent.fill(0);
+        parent.rectMode(PConstants.CORNER);
+        parent.rect(0,0,900,900);
+    }
 
+    public void initializeGrid(){
+
+        parent.stroke(100);
         for(int startY=25;startY<=775;startY +=50) {
             parent.line(25, startY, 775, startY);
         }
@@ -22,6 +29,7 @@ public class Grid {
 
 
     public void margins(){
+
         parent.stroke(100);
         parent.strokeWeight(50);
         parent.line(0,0,800,0);

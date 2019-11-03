@@ -4,7 +4,7 @@ import core.game_engine.GameObject;
 import processing.core.PApplet;
 
 public class Platform extends GameObject {
-
+    ObjectTags tag = ObjectTags.PLATFORM;
     public Platform(PApplet p,int x,int y) {
         super(p,x,y);
     }
@@ -22,10 +22,4 @@ public class Platform extends GameObject {
         System.out.println("Sunt platforma haha");
     }
 
-    public void CoverMe(){
-        parent.fill(0);
-        parent.rectMode(parent.CENTER);
-        parent.noStroke();
-        parent.rect(x, y, 50, 50);
-    }
 }
