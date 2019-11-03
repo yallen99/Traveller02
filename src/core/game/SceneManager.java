@@ -1,46 +1,61 @@
 package core.game;
 import core.Scenes;
-import core.OptionSelector;
+import core.game_engine.OptionSelector;
 import processing.core.PApplet;
 
 public class SceneManager {
     PApplet parent;
-    public SceneManager(PApplet p){ parent = p; }
-    private Scenes activeScene = Scenes.MAINMENU;
+    public SceneManager(PApplet p) {
+        parent = p;
+    }
+
+    private String scene = "Main Menu";
+
 
     OptionSelector optionSelector;
 
-    public int ActiveScene(){
-        if(activeScene == Scenes.MAINMENU){
-            return 1;
-        }
-        else if(activeScene == Scenes.LEVELEDITOR){
-            return 2;
-        }
-        else if(activeScene == Scenes.GAMEOVER){
-            return 3;
-        }
-        else if(activeScene == Scenes.LEVELSELECTOR){
-            return 4;
-        }
-        else return 0;
+    public String ActiveScene(){
+        return scene;
     }
 
-    public void linkScenes(){
+//    public String ActiveScene() {
+//        if (scene == "Main Menu") {
+//            return scene;
+//        } else if (scene == "Editor") {
+//            return 2;
+//        } else if (scene == "Game Over") {
+//            return 3;
+//        } else if (scene == "Level Selector") {
+//            return 4;
+//        } else if (scene == "Play"){
+//            return 5;
+//        }
+//            return 0;
+//    }
+
+
+
+    public void linkScenes() {
         optionSelector = new OptionSelector(parent);
 
-        if(ActiveScene() == 1) {
-            if (optionSelector.SelectorManager() == 1 && parent.mousePressed) {
-                activeScene = Scenes.LEVEL;
-            }
-            if (optionSelector.SelectorManager() == 2 && parent.mousePressed) {
-                activeScene = Scenes.LEVELEDITOR;
-            }
-            if (optionSelector.SelectorManager() == 3 && parent.mousePressed) {
-                activeScene = Scenes.LEVELSELECTOR;
+        if (ActiveScene() == "Main Menu") {
+            if (KeyCheck() == 10 && optionSelector.SelectorManager() == 1)  {
+                scene = "Level";
+            } else if (KeyCheck() == 69 && optionSelector.SelectorManager() == 2) {
+               scene = "Editor";
+            } else if (KeyCheck() == 10 && optionSelector.SelectorManager() == 3) {
+                scene = "Level Selector";
             }
         }
-        }
+    }
+
+    private int KeyCheck()
+    {
+        parent.keyTyped();
+
+        return parent.keyCode;
+    }
 }
+
 
 

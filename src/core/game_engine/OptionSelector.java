@@ -1,4 +1,4 @@
-package core;
+package core.game_engine;
 import core.game.SceneManager;
 import core.game_engine.objects.Key;
 import processing.core.PApplet;
@@ -7,13 +7,14 @@ import java.util.ArrayList;
 public class OptionSelector {
     public PApplet parent;
     public OptionSelector(PApplet p){
-        this.parent = p; }
+        this.parent = p;
+        sceneManager = new SceneManager(parent); }
 
-        //main menu button strokes
-        int activatedPlayStroke = 0;
-        int activatedEditStroke = 0;
-        int activatedLevelsStroke = 0;
-        int activatedQuitStroke = 0;
+    //main menu button strokes
+    int activatedPlayStroke = 0;
+    int activatedEditStroke = 0;
+    int activatedLevelsStroke = 0;
+    int activatedQuitStroke = 0;
 
         //level editor button strokes
         int activatedPlatformStroke = 100;
@@ -48,52 +49,56 @@ public class OptionSelector {
             parent.keyTyped();
             return parent.keyCode;
         }
+
         public void CreatorUI() {
-        sceneManager = new SceneManager(parent);
-        CheckForSelectedButtons();
-        switch (sceneManager.ActiveScene()) {
-            case 1:
+            CheckForSelectedButtons();
+            sceneManager.linkScenes();
+          //  System.out.println("Buttons created           " + sceneManager.ActiveScene());
+            if (sceneManager.ActiveScene() == "Main Menu") {
                 PlayButton();
                 EditButton();
                 LevelSelectorButton();
                 QuitButton();
-                break;
-            case 2:
+            }
+
+            if (sceneManager.ActiveScene() == "Editor") {
                 PlatformButton();
                 PlayerButton();
                 FinishButton();
                 KeyButton();
                 ClearAllButton();
-                break;
-
+            }
         }
-    }
 
         private void CheckForSelectedButtons() {
-           if(sceneManager.ActiveScene() == 1) {
-               if (SelectorManager() == 1) {
+           if(sceneManager.ActiveScene() == "Main Menu") {
+                    if (SelectorManager() == 1) {
                    activatedPlayStroke = 255;
                    activatedEditStroke = 0;
                    activatedLevelsStroke = 0;
                    activatedQuitStroke = 0;
-               } else if (SelectorManager() == 2) {
+               }
+               else if (SelectorManager() == 2) {
                    activatedPlayStroke = 0;
                    activatedEditStroke = 0;
                    activatedLevelsStroke = 255;
                    activatedQuitStroke = 0;
-               } else if (SelectorManager() == 3) {
+               }
+               else if (SelectorManager() == 3) {
                    activatedPlayStroke = 0;
                    activatedEditStroke = 255;
                    activatedLevelsStroke = 0;
                    activatedQuitStroke = 0;
-               } else if (SelectorManager() == 4) {
+               }
+               else if (SelectorManager() == 4) {
                    activatedPlayStroke = 0;
                    activatedEditStroke = 0;
                    activatedLevelsStroke = 0;
                    activatedQuitStroke = 255;
                }
            }
-            if(sceneManager.ActiveScene() == 2){
+
+           if(sceneManager.ActiveScene() == "Editor"){
                          if (SelectorManager() == 1) {
                         activatedPlatformStroke = 0;
                         activatedPlayerStroke = 100;

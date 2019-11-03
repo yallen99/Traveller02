@@ -1,6 +1,5 @@
 package core.game_engine;
 
-import core.OptionSelector;
 import core.game_engine.objects.FinishPoint;
 import core.game_engine.objects.Key;
 import core.game_engine.objects.Platform;
@@ -45,7 +44,7 @@ public class LevelEditor {
 //    }
 
     public void snapObject(float x,float y) {
-        System.out.println(objectsOnScreen.size());
+       // System.out.println(objectsOnScreen.size());
 
 
         int roundedX = PApplet.round(x / 50) * 50;
