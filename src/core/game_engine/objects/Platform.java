@@ -1,7 +1,9 @@
 package core.game_engine.objects;
 
 import core.game_engine.GameObject;
+import core.game_engine.data_management.Serializable;
 import processing.core.PApplet;
+import processing.data.JSONObject;
 
 public class Platform extends GameObject {
     ObjectTags tag = ObjectTags.PLATFORM;
@@ -19,7 +21,17 @@ public class Platform extends GameObject {
 
     @Override
     public void nameEntity() {
-        System.out.println("Sunt platforma haha");
     }
 
+    @Override
+    public JSONObject serializeToJSON(){
+        JSONObject gameObjectData = super.serializeToJSON();
+        gameObjectData.setString("tag", tag.toString());
+        return gameObjectData;
+    }
+
+    @Override
+    public void loadJSONObject(JSONObject json) {
+
+    }
 }

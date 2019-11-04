@@ -1,5 +1,6 @@
 package core.game_engine;
 
+import core.game_engine.data_management.DataManager;
 import core.game_engine.objects.FinishPoint;
 import core.game_engine.objects.Key;
 import core.game_engine.objects.Platform;
@@ -16,6 +17,8 @@ public class LevelEditor {
     private FinishPoint finishPoint;
     private ArrayList<GameObject> objectsOnScreen;
     private boolean clearing = false;
+
+    DataManager dataManager;
 
     public LevelEditor(PApplet p){
         this.parent = p;
@@ -45,6 +48,7 @@ public class LevelEditor {
 
     public void snapObject(float x,float y) {
        // System.out.println(objectsOnScreen.size());
+        dataManager = new DataManager(parent);
 
 
         int roundedX = PApplet.round(x / 50) * 50;
@@ -57,16 +61,13 @@ public class LevelEditor {
                 if (isGridEmpty(roundedX, roundedY)) {
                     Platform platform = new Platform(parent, roundedX, roundedY);
                     objectsOnScreen.add(platform);
-
                 }
             }
-
             //create player
             if (parent.mousePressed && optionSelector.SelectorManager() == 2 && player == null) {
                 if (isGridEmpty(roundedX, roundedY)) {
                     player = new Player(parent, roundedX, roundedY);
                     objectsOnScreen.add(player);
-
                 }
 
             } else if (optionSelector.SelectorManager() == 2 && player != null) {
@@ -93,6 +94,14 @@ public class LevelEditor {
             }
         }
     }
+
+    public void SaveLevel(){
+        if(optionSelector.KeyCheck() == 10){
+            dataManager.saveGameObjects(objectsOnScreen, "objects");
+            System.out.println("platform saved");
+        }
+    }
+
 
     private boolean isGridEmpty(int x,int y) {
         for(GameObject gameObject : objectsOnScreen){

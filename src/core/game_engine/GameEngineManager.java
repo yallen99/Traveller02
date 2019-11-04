@@ -25,5 +25,6 @@ public class GameEngineManager {
         optionSelector.CreatorUI();
         levelEditor.snapObject(parent.mouseX,parent.mouseY);
         levelEditor.ClearLastObject();
+        levelEditor.SaveLevel();
     }
 }

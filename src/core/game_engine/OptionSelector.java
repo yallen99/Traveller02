@@ -60,7 +60,7 @@ public class OptionSelector {
           }
               return selector;
         }
-        private int KeyCheck()
+        public int KeyCheck()
         {
             parent.keyTyped();
             return parent.keyCode;
