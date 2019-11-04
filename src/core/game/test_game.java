@@ -45,13 +45,10 @@ public class test_game {
             menuDisplayed = false;
             if(!editorStarted) {
                 gameEngineManager.startup();
-                System.out.println("EDITOR STARTUP");
+              //  System.out.println("EDITOR STARTUP");
                 editorStarted = true;
             }
-            else{
                 gameEngineManager.update();
-            }
-
           }
         }
 

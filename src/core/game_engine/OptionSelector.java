@@ -42,6 +42,22 @@ public class OptionSelector {
           else if(KeyCheck() == 53){
               selector = 5;
           }
+          else if(KeyCheck() == 38) {
+              //Play
+              selector = 10;
+          }
+          else if(KeyCheck() == 39) {
+              //Level Selector
+              selector = 11;
+          }
+          else if(KeyCheck() == 37) {
+              //Editor
+              selector = 12;
+          }
+          else if(KeyCheck() == 40) {
+             //Quit
+              selector = 13;
+          }
               return selector;
         }
         private int KeyCheck()
@@ -72,25 +88,25 @@ public class OptionSelector {
 
         private void CheckForSelectedButtons() {
            if(sceneManager.ActiveScene() == "Main Menu") {
-                    if (SelectorManager() == 1) {
+                    if (SelectorManager() == 10) {
                    activatedPlayStroke = 255;
                    activatedEditStroke = 0;
                    activatedLevelsStroke = 0;
                    activatedQuitStroke = 0;
                }
-               else if (SelectorManager() == 2) {
+               else if (SelectorManager() == 12) {
                    activatedPlayStroke = 0;
                    activatedEditStroke = 0;
                    activatedLevelsStroke = 255;
                    activatedQuitStroke = 0;
                }
-               else if (SelectorManager() == 3) {
+               else if (SelectorManager() == 11) {
                    activatedPlayStroke = 0;
                    activatedEditStroke = 255;
                    activatedLevelsStroke = 0;
                    activatedQuitStroke = 0;
                }
-               else if (SelectorManager() == 4) {
+               else if (SelectorManager() == 13) {
                    activatedPlayStroke = 0;
                    activatedEditStroke = 0;
                    activatedLevelsStroke = 0;
@@ -144,28 +160,28 @@ public class OptionSelector {
             parent.strokeWeight(5);
              parent.fill(0,255,0);
              parent.rectMode(parent.CORNER);
-             parent.rect(200,250,150,100);
+             parent.rect(350,430,150,100);
         }
         private void EditButton(){
             parent.stroke(activatedEditStroke);
             parent.strokeWeight(5);
             parent.fill(0,255,0);
             parent.rectMode(parent.CORNER);
-            parent.rect(450,250,150,100);
+            parent.rect(520,550,150,100);
         }
         private void LevelSelectorButton(){
             parent.stroke(activatedLevelsStroke);
             parent.strokeWeight(5);
             parent.fill(0,255,0);
             parent.rectMode(parent.CORNER);
-            parent.rect(200,450,150,100);
+            parent.rect(180,550,150,100);
         }
         private void QuitButton(){
             parent.stroke(activatedQuitStroke);
             parent.strokeWeight(5);
             parent.fill(0,255,0);
             parent.rectMode(parent.CORNER);
-            parent.rect(450,450,150,100);
+            parent.rect(350,550,150,100);
         }
 
         //editor buttons

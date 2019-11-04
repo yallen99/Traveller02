@@ -39,23 +39,23 @@ public class SceneManager {
         optionSelector = new OptionSelector(parent);
 
         if (ActiveScene() == "Main Menu") {
-            if (KeyCheck() == 10 && optionSelector.SelectorManager() == 1)  {
+            if (parent.mousePressed && optionSelector.SelectorManager() == 10)  {
+                // UP ARROW
                 scene = "Level";
-            } else if (KeyCheck() == 69 && optionSelector.SelectorManager() == 2) {
+            } else if (parent.mousePressed && optionSelector.SelectorManager() == 12) {
+              //LEFT ARROW
                scene = "Editor";
-            } else if (KeyCheck() == 10 && optionSelector.SelectorManager() == 3) {
+            } else if (parent.mousePressed && optionSelector.SelectorManager() == 11) {
+               //RIGHT ARROW
                 scene = "Level Selector";
+            }
+            } else if (parent.mousePressed && optionSelector.SelectorManager() == 13) {
+                 //DOWN ARROW
+                  System.out.println("APPLICATION  QUIT");
             }
         }
     }
 
-    private int KeyCheck()
-    {
-        parent.keyTyped();
-
-        return parent.keyCode;
-    }
-}
 
 
 
