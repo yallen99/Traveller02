@@ -65,7 +65,6 @@ public class OptionSelector {
             parent.keyTyped();
             return parent.keyCode;
         }
-
         public void CreatorUI() {
             CheckForSelectedButtons();
             sceneManager.linkScenes();

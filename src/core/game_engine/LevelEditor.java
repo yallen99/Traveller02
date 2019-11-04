@@ -117,7 +117,17 @@ public class LevelEditor {
                 if(!clearing && parent.keyCode == 90) {
                     GameObject toRemove = objectsOnScreen.get(objectsOnScreen.size() - 1);
                     toRemove.coverMe();
-                objectsOnScreen.remove(toRemove);
+                    objectsOnScreen.remove(toRemove);
+                    if(toRemove == player){
+                        toRemove.coverMe();
+                        objectsOnScreen.remove(toRemove);
+                        player = null;
+                    }
+                    if(toRemove == finishPoint){
+                        toRemove.coverMe();
+                        objectsOnScreen.remove(toRemove);
+                        finishPoint = null;
+                    }
                 clearing = true;
                 }
         }
