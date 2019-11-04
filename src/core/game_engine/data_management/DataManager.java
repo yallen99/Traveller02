@@ -1,7 +1,6 @@
 package core.game_engine.data_management;
 
 import core.game_engine.GameObject;
-import core.game_engine.objects.Platform;
 import processing.core.PApplet;
 import processing.data.JSONArray;
 import processing.data.JSONObject;
@@ -14,7 +13,7 @@ public class DataManager {
 
     public JSONObject levelData;
     private String loadLevelFile = "levels.json";
-    private String dataFolder = "Data Folder/";
+    private String dataFolder = "DataFolder/";
 
     //load json file
     public void loadLevelFile(){
@@ -34,7 +33,6 @@ public class DataManager {
 
     public JSONArray getJSONArray(String arrayName){
         if(levelData.hasKey(arrayName)){
-
             return levelData.getJSONArray(arrayName);
         }
         return null;

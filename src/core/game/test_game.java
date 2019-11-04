@@ -44,7 +44,13 @@ public class test_game {
    //     System.out.println("Currently on scene     " + sceneManager.ActiveScene());
 
         if(sceneManager.ActiveScene() == "Main Menu" && menuDisplayed){
-                gameManager.update();
+                gameManager.updateMenu();
+        }
+
+        else if(sceneManager.ActiveScene() == "Level"){
+
+
+            gameManager.updateLevel();
         }
 
         else if(sceneManager.ActiveScene() == "Editor") {
@@ -55,6 +61,9 @@ public class test_game {
             }
                 gameEngineManager.update();
           }
+        else if(sceneManager.ActiveScene() == "Level"){
+
+        }
         }
 
 

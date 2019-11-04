@@ -97,8 +97,7 @@ public class LevelEditor {
 
     public void SaveLevel(){
         if(optionSelector.KeyCheck() == 10){
-            dataManager.saveGameObjects(objectsOnScreen, "objects");
-            System.out.println("platform saved");
+            dataManager.saveGameObjects(objectsOnScreen, "Level 1");
         }
     }
 
