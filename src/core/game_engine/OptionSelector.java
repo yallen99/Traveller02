@@ -58,6 +58,10 @@ public class OptionSelector {
              //Quit
               selector = 13;
           }
+             //BACKSPACE = BACK -- key 8
+          else if(KeyCheck() == 8){
+              return selector = 100;
+          }
               return selector;
         }
         public int KeyCheck()

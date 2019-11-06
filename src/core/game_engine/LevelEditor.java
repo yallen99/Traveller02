@@ -17,6 +17,7 @@ public class LevelEditor {
     private FinishPoint finishPoint;
     private ArrayList<GameObject> objectsOnScreen;
     private boolean clearing = false;
+    private boolean saving = false;
 
     DataManager dataManager;
 
@@ -25,26 +26,6 @@ public class LevelEditor {
         optionSelector = new OptionSelector(parent);
         objectsOnScreen = new ArrayList<GameObject>();
     }
-
-//    public void initializeGame(){
-//        GameObject[] allObjects = new GameObject[3];
-//
-//        Platform platform = new Platform(parent);
-//        platform.createObject(100,100);
-//        Platform platform2 = new Platform(parent);
-//        platform.createObject(400,400);
-//        player = new Player(parent);
-//        player.createObject(200,200);
-//
-//        allObjects[0]=platform;
-//        allObjects[1]=platform2;
-//        allObjects[2]=player;
-//
-//
-//        for (GameObject gameObject : allObjects){
-//            gameObject.nameEntity();
-//        }
-//    }
 
     public void snapObject(float x,float y) {
        // System.out.println(objectsOnScreen.size());
@@ -95,12 +76,43 @@ public class LevelEditor {
         }
     }
 
-    public void SaveLevel(){
+    public void DisplaySaveLevel(){
         if(optionSelector.KeyCheck() == 10){
-            dataManager.saveGameObjects(objectsOnScreen, "Level 1");
+            saving = true;
+            DisplayLevelSlotOptions();
+        }
+    }
+    public boolean IsSaving(){
+        return saving;
+    }
+
+    public void SaveOnSlot(){
+        if(parent.keyCode == 88 && saving){
+            dataManager.saveGameObjects(objectsOnScreen, "Level 2");
+            System.out.println("LEVEL 2 SAVED");
+            saving = false;
+        }
+        else if(parent.keyCode == 89 && saving){
+            dataManager.saveGameObjects(objectsOnScreen, "Level 3");
+            System.out.println("LEVEL 3 SAVED");
+            saving = false;
         }
     }
 
+    private void DisplayLevelSlotOptions(){
+        parent.background(0);
+        parent.fill(255);
+        parent.noStroke();
+        parent.rectMode(parent.CENTER);
+        parent.rect(400,400,600,200);
+        parent.fill(0);
+        parent.textSize(30);
+        parent.text(" Click X to save on Slot 1 \n Click Y to save on Slot 2",170, 420);
+        parent.fill(0);
+        parent.textSize(40);
+        parent.text(" SAVE LEVEL",250, 360);
+
+    }
 
     private boolean isGridEmpty(int x,int y) {
         for(GameObject gameObject : objectsOnScreen){

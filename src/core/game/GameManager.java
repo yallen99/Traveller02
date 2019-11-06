@@ -12,6 +12,7 @@ import processing.data.JSONArray;
 import processing.data.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 public class GameManager {
     PApplet parent;
@@ -22,6 +23,7 @@ public class GameManager {
     DataManager dataManager;
     ArrayList<GameObject> loadedObjects;
     String itemType = "Platform";
+    private int level = 0;
 
     public void start(){
         optionSelector = new OptionSelector(parent);
@@ -29,41 +31,23 @@ public class GameManager {
         dataManager = new DataManager(parent);
         parent.background(0);
     }
-
-    public void updateMenu(){
-
-            optionSelector.CreatorUI();
-    }
-
-    public void updateLevel(){
-
-        dataManager.loadLevelFile();
-        CreateLevelLayout();
-        loadLevelObjects("Level 1");
-        System.out.println(dataManager.levelData);
-    }
-
     private void CreateLevelLayout(){
         parent.fill(0);
         parent.rect(0,0,900,900);
     }
-
     public void loadLevelObjects(String listName){
         loadedObjects = new ArrayList();
         if(dataManager.levelData != null){
-        JSONArray levelObjectsArray = dataManager.levelData.getJSONArray(listName);
-        for(int i = 0; i < levelObjectsArray.size(); i++){
+            JSONArray levelObjectsArray = dataManager.levelData.getJSONArray(listName);
+            for(int i = 0; i < levelObjectsArray.size(); i++){
 
-            JSONObject objectData =(JSONObject)levelObjectsArray.get(i);
-            itemType = objectData.getString("tag");
-            add_object(objectData.getInt("x")
-                       ,objectData.getInt("y"));
+                JSONObject objectData =(JSONObject)levelObjectsArray.get(i);
+                itemType = objectData.getString("tag");
+                add_object(objectData.getInt("x")
+                        ,objectData.getInt("y"));
+            }
         }
     }
-    //    System.out.println("LEVEL LOADED");
-
-    }
-
     private GameObject add_object(int x, int y){
         GameObject gameObject = null;
         if ("PLATFORM".equals(itemType)) {
@@ -85,6 +69,53 @@ public class GameManager {
             gameObject = finish;
         }
         return gameObject;
+    }
+
+    ///////////////////////////////////// MENU ////////////////////////////////////////
+    public void updateMenu(){
+            parent.fill(0);
+            parent.noStroke();
+            parent.rectMode(parent.CORNER);
+            parent.rect(0,0, 900,900);
+            optionSelector.CreatorUI();
+    }
+
+    /////////////////////////////////////// LEVEL 1 ///////////////////////////////////
+    public void updateLevel1(){
+
+        dataManager.loadLevelFile();
+        CreateLevelLayout();
+        loadLevelObjects("Level 1");
+    }
+
+    ///////////////////////////////////// LEVEL 2 /////////////////////////////////////
+    public void updateLevel2(){
+        dataManager.loadLevelFile();
+        CreateLevelLayout();
+        loadLevelObjects("Level 2");
+    }
+
+    //////////////////////////////////// LEVEL 3 /////////////////////////////////////
+    public void updateLevel3(){
+        dataManager.loadLevelFile();
+        CreateLevelLayout();
+        loadLevelObjects("Level 3");
+    }
+
+    ///////////////////////////////////// LEVEL SELECTOR //////////////////////////////
+    public void updateSelector(){
+        parent.background(0);
+        createSelectorUI();
+        sceneManager.linkScenes();
+    }
+
+    private void createSelectorUI(){
+        parent.fill(255,255,0);
+        parent.noStroke();
+        parent.rectMode(parent.CORNER);
+        parent.rect(150, 100, 100, 50);
+        parent.rect(350, 100, 100, 50);
+        parent.rect(550, 100, 100, 50);
     }
 }
 

@@ -20,11 +20,25 @@ public class GameEngineManager {
     }
 
     public void update(){
-        grid.initializeGrid();
-        grid.margins();
-        optionSelector.CreatorUI();
+        if(grid != null) {
+            grid.initializeGrid();
+            grid.margins();
+        }
+        if(optionSelector != null) {
+            optionSelector.CreatorUI();
+        }
+
         levelEditor.snapObject(parent.mouseX,parent.mouseY);
         levelEditor.ClearLastObject();
-        levelEditor.SaveLevel();
+        levelEditor.DisplaySaveLevel();
+
+        if(levelEditor.IsSaving()){
+            grid = null;
+            optionSelector = null;
+            levelEditor.SaveOnSlot();
+        }
+
     }
+
+
 }

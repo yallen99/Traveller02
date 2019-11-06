@@ -27,3 +27,12 @@ public class Main extends PApplet
         PApplet.main("Main" );
     }
 }
+
+
+//todo
+// add a back in editor
+// add box colliders
+// add player functionality
+// add the collectable function
+// find a way to save different levels
+// add a display for different levels

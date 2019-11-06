@@ -15,7 +15,6 @@ public class test_game {
     DataManager dataManager;
 
     private boolean editorStarted = false;
-    private boolean menuDisplayed = true;
 
     PApplet parent;
     public test_game(PApplet p){ parent = p; }
@@ -41,30 +40,30 @@ public class test_game {
 
     public void updateGame() {
         sceneManager.linkScenes();
-   //     System.out.println("Currently on scene     " + sceneManager.ActiveScene());
-
-        if(sceneManager.ActiveScene() == "Main Menu" && menuDisplayed){
+        if(sceneManager.ActiveScene() == "Main Menu" ){
                 gameManager.updateMenu();
         }
-
-        else if(sceneManager.ActiveScene() == "Level"){
-
-
-            gameManager.updateLevel();
+        else if(sceneManager.ActiveScene() == "Level 1"){
+            gameManager.updateLevel1();
+        }
+        else if(sceneManager.ActiveScene() == "Level 2"){
+            gameManager.updateLevel2();
+        }
+        else if(sceneManager.ActiveScene() == "Level 3"){
+            gameManager.updateLevel3();
         }
 
         else if(sceneManager.ActiveScene() == "Editor") {
-            menuDisplayed = false;
             if(!editorStarted) {
                 gameEngineManager.startup();
                 editorStarted = true;
             }
                 gameEngineManager.update();
           }
-        else if(sceneManager.ActiveScene() == "Level"){
-
+        else if(sceneManager.ActiveScene() == "Level Selector"){
+            gameManager.updateSelector();
         }
-        }
+    }
 
 
     public void KeyPressed(char key, int keyCode){

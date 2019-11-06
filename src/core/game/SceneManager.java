@@ -10,34 +10,73 @@ public class SceneManager {
     }
 
     private String scene = "Main Menu";
-
-
     OptionSelector optionSelector;
+    GameManager gameManager;
 
     public String ActiveScene(){
         return scene;
     }
 
     public void linkScenes() {
-        optionSelector = new OptionSelector(parent);
+        gameManager = new GameManager(parent);
+
 
         if (ActiveScene() == "Main Menu") {
-            if (parent.mousePressed && optionSelector.SelectorManager() == 10)  {
+            optionSelector = new OptionSelector(parent);
+            if (optionSelector.SelectorManager() == 10)  {
                 // UP ARROW
-                scene = "Level";
-            } else if (parent.mousePressed && optionSelector.SelectorManager() == 12) {
+                scene = "Level 1";
+                optionSelector = null;
+            } else if (optionSelector.SelectorManager() == 12) {
               //LEFT ARROW
                scene = "Editor";
-            } else if (parent.mousePressed && optionSelector.SelectorManager() == 11) {
+               optionSelector = null;
+
+            } else if (optionSelector.SelectorManager() == 11) {
                //RIGHT ARROW
                 scene = "Level Selector";
+                optionSelector = null;
             }
-            } else if (parent.mousePressed && optionSelector.SelectorManager() == 13) {
-                 //DOWN ARROW
-                  System.out.println("APPLICATION  QUIT");
+        }
+
+        else if(ActiveScene() == "Editor"){
+            optionSelector = new OptionSelector(parent);
+            if(optionSelector.SelectorManager() == 100){
+                scene = "Main Menu";
+                optionSelector = null;
+            }
+        }
+
+        else if(ActiveScene() == "Level Selector"){
+            optionSelector = new OptionSelector(parent);
+
+            if (optionSelector.SelectorManager() == 1) {
+                scene = "Level 1";
+                System.out.println(scene);
+                optionSelector = null;
+            } else if (optionSelector.SelectorManager() == 2) {
+                scene = "Level 2";
+                optionSelector = null;
+            } else if (optionSelector.SelectorManager() == 3) {
+                scene = "Level 3";
+                optionSelector = null;
+            } else if (optionSelector.SelectorManager() == 100) {
+                System.out.println("BACKED");
+                scene = "Main Menu";
+                optionSelector = null;
+            }
+        }
+
+        else if(ActiveScene() == "Level 1" || ActiveScene() == "Level 2" || ActiveScene() == "Level 3"){
+            optionSelector = new OptionSelector(parent);
+            if (optionSelector.SelectorManager() == 100) {
+                System.out.println("BACKED");
+                scene = "Main Menu";
+                optionSelector = null;
             }
         }
     }
+}
 
 
 
