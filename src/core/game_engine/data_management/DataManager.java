@@ -9,34 +9,29 @@ import java.util.ArrayList;
 
 public class DataManager {
     PApplet parent;
-    public DataManager(PApplet p){ parent = p; }
+
+    public DataManager(PApplet p) {
+        parent = p;
+    }
 
     public JSONObject levelData;
     private String loadLevelFile = "levels.json";
     private String dataFolder = "DataFolder/";
 
     //load json file
-    public void loadLevelFile(){
-    levelData = parent.loadJSONObject(dataFolder + loadLevelFile);
+    public void loadLevelFile() {
+        levelData = parent.loadJSONObject(dataFolder + loadLevelFile);
     }
 
     //save json file
-    public void saveGameObjects(ArrayList<GameObject> jsonPlatformList, String nameOfList){
+    public void saveGameObjects(ArrayList<GameObject> jsonPlatformList, String nameOfList) {
         loadLevelFile();
         JSONArray newList = new JSONArray();
-        for(Serializable serialJson : jsonPlatformList){
+        for (Serializable serialJson : jsonPlatformList) {
             newList.append(serialJson.serializeToJSON());
         }
         levelData.setJSONArray(nameOfList, newList);
-        parent.saveJSONObject(this.levelData, dataFolder+loadLevelFile);
+        parent.saveJSONObject(this.levelData, dataFolder + loadLevelFile);
     }
-
-    public JSONArray getJSONArray(String arrayName){
-        if(levelData.hasKey(arrayName)){
-            return levelData.getJSONArray(arrayName);
-        }
-        return null;
-    }
-
 
 }

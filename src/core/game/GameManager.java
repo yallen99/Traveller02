@@ -1,6 +1,7 @@
 package core.game;
 
 import core.game_engine.GameObject;
+import core.game_engine.LevelEditor;
 import core.game_engine.OptionSelector;
 import core.game_engine.data_management.DataManager;
 import core.game_engine.objects.FinishPoint;
@@ -12,7 +13,7 @@ import processing.data.JSONArray;
 import processing.data.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Set;
+
 
 public class GameManager {
     PApplet parent;
@@ -22,8 +23,9 @@ public class GameManager {
     SceneManager sceneManager;
     DataManager dataManager;
     ArrayList<GameObject> loadedObjects;
+    JSONArray levelObjectsArray;
     String itemType = "Platform";
-    private int level = 0;
+
 
     public void start(){
         optionSelector = new OptionSelector(parent);
@@ -38,7 +40,7 @@ public class GameManager {
     public void loadLevelObjects(String listName){
         loadedObjects = new ArrayList();
         if(dataManager.levelData != null){
-            JSONArray levelObjectsArray = dataManager.levelData.getJSONArray(listName);
+            levelObjectsArray = dataManager.levelData.getJSONArray(listName);
             for(int i = 0; i < levelObjectsArray.size(); i++){
 
                 JSONObject objectData =(JSONObject)levelObjectsArray.get(i);
@@ -104,18 +106,23 @@ public class GameManager {
 
     ///////////////////////////////////// LEVEL SELECTOR //////////////////////////////
     public void updateSelector(){
+        dataManager.loadLevelFile();
         parent.background(0);
         createSelectorUI();
         sceneManager.linkScenes();
     }
 
-    private void createSelectorUI(){
-        parent.fill(255,255,0);
+    private void createSelectorUI() {
+        parent.fill(255, 255, 0);
         parent.noStroke();
         parent.rectMode(parent.CORNER);
         parent.rect(150, 100, 100, 50);
-        parent.rect(350, 100, 100, 50);
-        parent.rect(550, 100, 100, 50);
+        if (dataManager.levelData.hasKey("Level 2") && dataManager.levelData.getJSONArray("Level 2").size() >= 1) {
+            parent.rect(350, 100, 100, 50);
+        }
+        if (dataManager.levelData.hasKey("Level 3") && dataManager.levelData.getJSONArray("Level 3").size() >= 1) {
+            parent.rect(550, 100, 100, 50);
+        }
     }
 }
 

@@ -15,6 +15,7 @@ public class test_game {
     DataManager dataManager;
 
     private boolean editorStarted = false;
+    private boolean editorBackground = false;
 
     PApplet parent;
     public test_game(PApplet p){ parent = p; }
@@ -41,6 +42,7 @@ public class test_game {
     public void updateGame() {
         sceneManager.linkScenes();
         if(sceneManager.ActiveScene() == "Main Menu" ){
+                editorBackground = false;
                 gameManager.updateMenu();
         }
         else if(sceneManager.ActiveScene() == "Level 1"){
@@ -52,19 +54,23 @@ public class test_game {
         else if(sceneManager.ActiveScene() == "Level 3"){
             gameManager.updateLevel3();
         }
-
         else if(sceneManager.ActiveScene() == "Editor") {
+            if(!editorBackground){
+                parent.fill(0);
+                parent.rectMode(parent.CORNER);
+                parent.rect(0,0,900,900);
+                editorBackground = true;
+            }
             if(!editorStarted) {
                 gameEngineManager.startup();
                 editorStarted = true;
             }
                 gameEngineManager.update();
-          }
+            }
         else if(sceneManager.ActiveScene() == "Level Selector"){
             gameManager.updateSelector();
         }
     }
-
 
     public void KeyPressed(char key, int keyCode){
         player_input.key_handler(key, keyCode, true);
