@@ -11,7 +11,7 @@ public class FinishPoint extends Platform {
     }
     @Override
     public void createObject(){
-        parent.fill(0, 255, 255);
+        parent.fill(255, 184, 64);
         parent.rectMode(parent.CENTER);
         parent.noStroke();
         parent.rect(x, y, 50, 50);

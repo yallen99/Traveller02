@@ -1,7 +1,6 @@
 package core.game;
 
 import core.game_engine.GameObject;
-import core.game_engine.LevelEditor;
 import core.game_engine.OptionSelector;
 import core.game_engine.data_management.DataManager;
 import core.game_engine.objects.FinishPoint;
@@ -108,20 +107,54 @@ public class GameManager {
     public void updateSelector(){
         dataManager.loadLevelFile();
         parent.background(0);
-        createSelectorUI();
+        CheckForSelectorButtons();
+        optionSelector.CreateSelectorUI();
         sceneManager.linkScenes();
     }
 
-    private void createSelectorUI() {
-        parent.fill(255, 255, 0);
+    private void CheckForSelectorButtons() {
+        parent.fill(242, 233, 189);
         parent.noStroke();
-        parent.rectMode(parent.CORNER);
-        parent.rect(150, 100, 100, 50);
         if (dataManager.levelData.hasKey("Level 2") && dataManager.levelData.getJSONArray("Level 2").size() >= 1) {
-            parent.rect(350, 100, 100, 50);
+            parent.fill(242, 233, 189);
+            parent.noStroke();
+            parent.rect(150, 300, 200, 150);
+            parent.textSize(40);
+            parent.fill(0);
+            parent.text("Level 2", 165, 340);
+            parent.textSize(30);
+            parent.text("click 2 \nto play", 165, 380);
+
+            //Additional text
+            parent.fill(0);
+            parent.strokeWeight(5);
+            parent.stroke(242,182,160);
+            parent.rectMode(parent.CORNER);
+            parent.rect(410, 300, 300, 150);
+            parent.fill(242, 233, 189);
+            parent.textSize(20);
+            parent.text("You can rewrite this level \nby creating a new one \nand saving it on 1st slot", 425, 345);
+
         }
         if (dataManager.levelData.hasKey("Level 3") && dataManager.levelData.getJSONArray("Level 3").size() >= 1) {
-            parent.rect(550, 100, 100, 50);
+            parent.fill(242, 233, 189);
+            parent.noStroke();
+            parent.rect(150, 500, 200, 150);
+            parent.textSize(40);
+            parent.fill(0);
+            parent.text("Level 3", 165, 540);
+            parent.textSize(30);
+            parent.text("click 3 \nto play", 165, 580);
+
+            //Additional text
+            parent.fill(0);
+            parent.strokeWeight(5);
+            parent.stroke(242,182,160);
+            parent.rectMode(parent.CORNER);
+            parent.rect(410, 500, 300, 150);
+            parent.fill(242, 233, 189);
+            parent.textSize(20);
+            parent.text("You can rewrite this level \nby creating a new one \nand saving it on 2nd slot", 425, 545);
         }
     }
 }

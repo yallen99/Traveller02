@@ -75,6 +75,10 @@ public class SceneManager {
                 optionSelector = null;
             }
         }
+
+        else if(ActiveScene() == "Clear Data"){
+            System.out.println("DATA CLEAAAAAAAAAAAAAAAAAAAAAAAAAAAREEEEEEEEEEEEED");
+        }
     }
 }
 

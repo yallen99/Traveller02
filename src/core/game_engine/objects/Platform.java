@@ -13,7 +13,7 @@ public class Platform extends GameObject {
 
     @Override
     public void createObject() {
-        parent.fill(163, 116, 34);
+        parent.fill(64, 29, 9);
         parent.rectMode(parent.CENTER);
         parent.noStroke();
         parent.rect(x, y, 50, 50);

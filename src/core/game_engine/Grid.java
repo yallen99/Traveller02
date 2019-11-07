@@ -16,7 +16,7 @@ public class Grid {
     }
 
     public void initializeGrid(){
-        parent.stroke(100);
+        parent.stroke(50);
         for(int startY=25;startY<=775;startY +=50) {
             parent.line(25, startY, 775, startY);
         }
@@ -28,7 +28,7 @@ public class Grid {
 
 
     public void margins(){
-        parent.stroke(100);
+        parent.stroke(50);
         parent.strokeWeight(50);
         parent.line(0,0,800,0);
         parent.line(0,0,0,800);

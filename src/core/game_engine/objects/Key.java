@@ -11,7 +11,7 @@ public class Key extends GameObject {
 
     @Override
     public void createObject() {
-        parent.fill(235, 136, 209);
+        parent.fill(88, 61, 140);
         parent.noStroke();
         parent.rectMode(PApplet.CENTER);
         parent.rect(x,y,25,25);

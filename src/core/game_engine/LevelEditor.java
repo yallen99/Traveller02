@@ -49,9 +49,15 @@ public class LevelEditor {
                 if (isGridEmpty(roundedX, roundedY)) {
                     player = new Player(parent, roundedX, roundedY);
                     objectsOnScreen.add(player);
+                    parent.fill(80);
+                    parent.textSize(15);
+                    parent.text("Already a player in the scene!", 300, 25);
                 }
 
             } else if (optionSelector.SelectorManager() == 2 && player != null) {
+                parent.fill(255,0,0);
+                parent.textSize(15);
+                parent.text("Already a player in the scene!", 300, 20);
                 System.out.println("THERE IS ALREADY A PLAYER IN THE SCENE!");
             }
 
@@ -60,10 +66,16 @@ public class LevelEditor {
                 if (isGridEmpty(roundedX, roundedY)) {
                     finishPoint = new FinishPoint(parent, roundedX, roundedY);
                     objectsOnScreen.add(finishPoint);
+                    parent.fill(80);
+                    parent.textSize(15);
+                    parent.text("Already a player in the scene!", 300, 25);
 
                 }
-            } else if (parent.mousePressed && optionSelector.SelectorManager() == 3 && finishPoint != null) {
+            } else if (optionSelector.SelectorManager() == 3 && finishPoint != null) {
                 System.out.println("THERE IS ALREADY A FINISH POINT IN THE SCENE!");
+                parent.fill(255,0,0);
+                parent.textSize(15);
+                parent.text("Already a finish point in the scene!", 300, 20);
             }
 
             //create key
@@ -131,7 +143,6 @@ public class LevelEditor {
         }
         return false;
     }
-
     public void ClearLastObject(){
         if (optionSelector.SelectorManager() == 5 && isObjectOnScreen()) {
                 if(!clearing && parent.keyCode == 90) {

@@ -1,8 +1,6 @@
 package core.game_engine;
 import core.game.SceneManager;
-import core.game_engine.objects.Key;
 import processing.core.PApplet;
-import java.util.ArrayList;
 
 public class OptionSelector {
     public PApplet parent;
@@ -14,14 +12,14 @@ public class OptionSelector {
     int activatedPlayStroke = 0;
     int activatedEditStroke = 0;
     int activatedLevelsStroke = 0;
-    int activatedQuitStroke = 0;
+    int activatedClearDataStroke = 0;
 
         //level editor button strokes
-        int activatedPlatformStroke = 100;
-        int activatedPlayerStroke = 100;
-        int activatedFinishStroke = 100;
-        int activatedKeyStroke = 100;
-        int activatedClearStroke = 100;
+        int activatedPlatformStroke = 50;
+        int activatedPlayerStroke = 50;
+        int activatedFinishStroke = 50;
+        int activatedKeyStroke = 50;
+        int activatedClearStroke = 50;
 
         SceneManager sceneManager;
         public int selector = 0;
@@ -64,8 +62,7 @@ public class OptionSelector {
           }
               return selector;
         }
-        public int KeyCheck()
-        {
+        public int KeyCheck() {
             parent.keyTyped();
             return parent.keyCode;
         }
@@ -77,7 +74,7 @@ public class OptionSelector {
                 PlayButton();
                 EditButton();
                 LevelSelectorButton();
-                QuitButton();
+                //ClearDataButton();
             }
 
             if (sceneManager.ActiveScene() == "Editor") {
@@ -95,63 +92,63 @@ public class OptionSelector {
                    activatedPlayStroke = 255;
                    activatedEditStroke = 0;
                    activatedLevelsStroke = 0;
-                   activatedQuitStroke = 0;
+                   activatedClearDataStroke = 0;
                }
                else if (SelectorManager() == 12) {
                    activatedPlayStroke = 0;
                    activatedEditStroke = 0;
                    activatedLevelsStroke = 255;
-                   activatedQuitStroke = 0;
+                   activatedClearDataStroke = 0;
                }
                else if (SelectorManager() == 11) {
                    activatedPlayStroke = 0;
                    activatedEditStroke = 255;
                    activatedLevelsStroke = 0;
-                   activatedQuitStroke = 0;
+                   activatedClearDataStroke = 0;
                }
                else if (SelectorManager() == 13) {
                    activatedPlayStroke = 0;
                    activatedEditStroke = 0;
                    activatedLevelsStroke = 0;
-                   activatedQuitStroke = 255;
+                   activatedClearDataStroke = 255;
                }
            }
 
            if(sceneManager.ActiveScene() == "Editor"){
                          if (SelectorManager() == 1) {
                         activatedPlatformStroke = 0;
-                        activatedPlayerStroke = 100;
-                        activatedFinishStroke = 100;
-                        activatedKeyStroke = 100;
-                        activatedClearStroke = 100;
+                        activatedPlayerStroke = 50;
+                        activatedFinishStroke = 50;
+                        activatedKeyStroke = 50;
+                        activatedClearStroke = 50;
 
                     }
                     else if (SelectorManager() == 2) {
-                        activatedPlatformStroke = 100;
+                        activatedPlatformStroke = 50;
                         activatedPlayerStroke = 0;
-                        activatedFinishStroke = 100;
-                        activatedKeyStroke = 100;
-                        activatedClearStroke = 100;
+                        activatedFinishStroke = 50;
+                        activatedKeyStroke = 50;
+                        activatedClearStroke = 50;
                     }
                     else if (SelectorManager() == 3) {
-                        activatedPlatformStroke = 100;
-                        activatedPlayerStroke = 100;
+                        activatedPlatformStroke = 50;
+                        activatedPlayerStroke = 50;
                         activatedFinishStroke = 0;
-                        activatedKeyStroke = 100;
-                        activatedClearStroke = 100;
+                        activatedKeyStroke = 50;
+                        activatedClearStroke = 50;
                     }
                     else if (SelectorManager() == 4) {
-                        activatedPlatformStroke = 100;
-                        activatedPlayerStroke = 100;
-                        activatedFinishStroke = 100;
+                        activatedPlatformStroke = 50;
+                        activatedPlayerStroke = 50;
+                        activatedFinishStroke = 50;
                         activatedKeyStroke = 0;
-                        activatedClearStroke = 100;
+                        activatedClearStroke = 50;
                     }
                     else if (SelectorManager() == 5) {
-                        activatedPlatformStroke = 100;
-                        activatedPlayerStroke = 100;
-                        activatedFinishStroke = 100;
-                        activatedKeyStroke = 100;
+                        activatedPlatformStroke = 50;
+                        activatedPlayerStroke = 50;
+                        activatedFinishStroke = 50;
+                        activatedKeyStroke = 50;
                         activatedClearStroke = 0;
                     }
             }
@@ -161,37 +158,51 @@ public class OptionSelector {
         private void PlayButton(){
             parent.stroke(activatedPlayStroke);
             parent.strokeWeight(5);
-             parent.fill(0,255,0);
+             parent.fill(242,182,160);
              parent.rectMode(parent.CORNER);
              parent.rect(350,430,150,100);
+             parent.textSize(40);
+             parent.fill(0);
+             parent.text("^",410,480);
+             parent.text("Play",390,515);
         }
         private void EditButton(){
             parent.stroke(activatedEditStroke);
             parent.strokeWeight(5);
-            parent.fill(0,255,0);
+            parent.fill(242,182,160);
             parent.rectMode(parent.CORNER);
             parent.rect(520,550,150,100);
+            parent.fill(0);
+            parent.text(">",540,605);
+            parent.textSize(30);
+            parent.text("Levels",570,605);
+
         }
         private void LevelSelectorButton(){
             parent.stroke(activatedLevelsStroke);
             parent.strokeWeight(5);
-            parent.fill(0,255,0);
+            parent.fill(242,182,160);
             parent.rectMode(parent.CORNER);
             parent.rect(180,550,150,100);
+            parent.textSize(40);
+            parent.fill(0);
+            parent.text("<",200,605);
+            parent.textSize(40);
+            parent.text("Edit",240,605);
         }
-        private void QuitButton(){
-            parent.stroke(activatedQuitStroke);
-            parent.strokeWeight(5);
-            parent.fill(0,255,0);
-            parent.rectMode(parent.CORNER);
-            parent.rect(350,550,150,100);
-        }
+//        private void ClearDataButton(){
+//            parent.stroke(activatedClearDataStroke);
+//            parent.strokeWeight(5);
+//            parent.fill(0,255,0);
+//            parent.rectMode(parent.CORNER);
+//            parent.rect(350,550,150,100);
+//        }
 
         //editor buttons
         private void PlatformButton(){
             parent.stroke(activatedPlatformStroke);
             parent.strokeWeight(5);
-            parent.fill(255,0,0);
+            parent.fill(200,193,217);
             parent.rectMode(parent.CENTER);
             parent.rect(100, 725, 75, 50);
 
@@ -202,7 +213,7 @@ public class OptionSelector {
         private void PlayerButton(){
             parent.stroke(activatedPlayerStroke);
             parent.strokeWeight(5);
-            parent.fill(255,255,0);
+            parent.fill(216,232,242);
             parent.rectMode(parent.CENTER);
             parent.rect(250, 725, 75, 50);
 
@@ -213,7 +224,7 @@ public class OptionSelector {
         private void FinishButton(){
             parent.stroke(activatedFinishStroke);
             parent.strokeWeight(5);
-            parent.fill(0,255,0);
+            parent.fill(242,233,189);
             parent.rectMode(parent.CENTER);
             parent.rect(400, 725, 75, 50);
 
@@ -224,7 +235,7 @@ public class OptionSelector {
         private void KeyButton(){
             parent.stroke(activatedKeyStroke);
             parent.strokeWeight(5);
-            parent.fill(0,255,255);
+            parent.fill(217,191,160);
             parent.rectMode(parent.CENTER);
             parent.rect(550, 725, 75, 50);
 
@@ -235,12 +246,25 @@ public class OptionSelector {
         private void ClearAllButton(){
             parent.stroke(activatedClearStroke);
             parent.strokeWeight(5);
-            parent.fill(255);
+            parent.fill(242,182,160);
             parent.rectMode(parent.CENTER);
             parent.rect(700, 725, 75, 50);
 
             parent.fill(0);
             parent.textSize(10);
-            parent.text("5.Clear \n [Ctrl+z]", 665, 725);
+            parent.text("5.Clear \n [Ctrl+z]", 675, 725);
+        }
+
+        public void CreateSelectorUI(){
+            parent.fill(242, 233, 189);
+            parent.noStroke();
+            parent.rectMode(parent.CORNER);
+            parent.rect(150, 100, 200, 150);
+
+            parent.textSize(40);
+            parent.fill(0);
+            parent.text("Level 1", 165, 140);
+            parent.textSize(30);
+            parent.text("click 1 \nto play", 165, 180);
         }
 }

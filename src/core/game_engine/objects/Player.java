@@ -12,7 +12,7 @@ public class Player extends GameObject {
 
     @Override
     public void createObject() {
-        parent.fill(255, 255, 0);
+        parent.fill(255, 200, 101);
         parent.noStroke();
         parent.ellipse(x, y, 25, 25);
     }
