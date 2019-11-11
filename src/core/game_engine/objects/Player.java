@@ -9,6 +9,7 @@ public class Player extends GameObject implements Movable {
     ObjectTags tag = ObjectTags.PLAYER;
     public Player(PApplet p,int x,int y) {
         super(p,x,y);
+        updatePosition();
     }
 
     @Override

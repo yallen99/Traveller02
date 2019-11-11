@@ -190,13 +190,6 @@ public class OptionSelector {
             parent.textSize(40);
             parent.text("Edit",240,605);
         }
-//        private void ClearDataButton(){
-//            parent.stroke(activatedClearDataStroke);
-//            parent.strokeWeight(5);
-//            parent.fill(0,255,0);
-//            parent.rectMode(parent.CORNER);
-//            parent.rect(350,550,150,100);
-//        }
 
         //editor buttons
         private void PlatformButton(){
@@ -255,6 +248,7 @@ public class OptionSelector {
             parent.text("5.Clear \n [Ctrl+z]", 675, 725);
         }
 
+        //selector buttons
         public void CreateSelectorUI(){
             parent.fill(242, 233, 189);
             parent.noStroke();
@@ -266,5 +260,35 @@ public class OptionSelector {
             parent.text("Level 1", 165, 140);
             parent.textSize(30);
             parent.text("click 1 \nto play", 165, 180);
+        }
+
+        //editor messages
+         public void PlayerMessageHidden(){
+        parent.fill(80);
+        parent.textSize(15);
+        parent.text("Already a player in the scene!", 300, 25);
+    }
+         public void PLayerMessageDisplayed(){
+        parent.fill(255,0,0);
+        parent.textSize(15);
+        parent.text("Already a player in the scene!", 300, 20);
+    }
+         public void FinishMessageHidden(){
+        parent.fill(80);
+        parent.textSize(15);
+        parent.text("Already a finish point in the scene!", 300, 25);
+    }
+         public void FinishMessageDisplayed(){
+        parent.fill(255,0,0);
+        parent.textSize(15);
+        parent.text("Already a finish point in the scene!", 300, 20);
+    }
+
+        //title
+        public void Title(){
+            parent.fill(255,200,101);
+            parent.noStroke();
+            parent.textSize(90);
+            parent.text("THE MAZE", 200, 200);
         }
 }

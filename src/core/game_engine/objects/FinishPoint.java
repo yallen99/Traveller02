@@ -8,6 +8,15 @@ public class FinishPoint extends Platform {
 
     public FinishPoint(PApplet p,int x,int y) {
         super(p,x,y);
+        updatePosition();
+    }
+
+    @Override
+    public void updatePosition() {
+        parent.fill(71, 217, 199);
+        parent.rectMode(parent.CENTER);
+        parent.noStroke();
+        parent.rect(x, y, 50, 50);
     }
 
     @Override

@@ -91,6 +91,7 @@ public class GameManager {
             parent.rectMode(parent.CORNER);
             parent.rect(0,0, 900,900);
             optionSelector.CreatorUI();
+            optionSelector.Title();
     }
 
     /////////////////////////////////////// LEVEL 1 ///////////////////////////////////
@@ -113,16 +114,24 @@ public class GameManager {
 
     ///////////////////////////////////// LEVEL 2 /////////////////////////////////////
     public void updateLevel2(){
+        if(!level2){
         dataManager.loadLevelFile();
         CreateLevelLayout();
         loadLevelObjects("Level 2");
+        level2 = true;
+        }
+        updateCanvas();
     }
 
     //////////////////////////////////// LEVEL 3 /////////////////////////////////////
-    public void updateLevel3(){
-        dataManager.loadLevelFile();
-        CreateLevelLayout();
-        loadLevelObjects("Level 3");
+    public void updateLevel3() {
+        if (!level3) {
+            dataManager.loadLevelFile();
+            CreateLevelLayout();
+            loadLevelObjects("Level 3");
+            level3 = true;
+        }
+        updateCanvas();
     }
 
     ///////////////////////////////////// LEVEL SELECTOR //////////////////////////////

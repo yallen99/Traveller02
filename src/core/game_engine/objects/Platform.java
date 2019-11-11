@@ -9,8 +9,8 @@ public class Platform extends GameObject {
     ObjectTags tag = ObjectTags.PLATFORM;
     public Platform(PApplet p,int x,int y) {
         super(p,x,y);
+        updatePosition();
     }
-
 
     @Override
     public void nameEntity() {

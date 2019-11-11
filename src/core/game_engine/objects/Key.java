@@ -7,6 +7,7 @@ public class Key extends GameObject {
     ObjectTags tag = ObjectTags.COLLECTABLE;
     public Key(PApplet p,int x,int y) {
         super(p,x,y);
+        updatePosition();
     }
 
 

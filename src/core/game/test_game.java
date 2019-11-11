@@ -17,9 +17,12 @@ public class test_game {
     private boolean editorBackground = false;
 
     PApplet parent;
-    public test_game(PApplet p){ parent = p; }
 
-    private void initialize_classes(){
+    public test_game(PApplet p) {
+        parent = p;
+    }
+
+    private void initialize_classes() {
         gameEngineManager = new GameEngineManager(parent);
         optionSelector = new OptionSelector(parent);
         sceneManager = new SceneManager(parent);
@@ -28,56 +31,45 @@ public class test_game {
 
     }
 
-    public void startGame(){
+    public void startGame() {
         initialize_classes();
         dataManager.loadLevelFile();
 
-       if(sceneManager.ActiveScene() == "Main Menu") {
-           gameManager.start();
-       }
+        if (sceneManager.ActiveScene() == "Main Menu") {
+            gameManager.start();
+        }
     }
 
     public void updateGame() {
         sceneManager.linkScenes();
-        if(sceneManager.ActiveScene() == "Main Menu" ){
-                editorBackground = false;
-                gameManager.updateMenu();
-        }
-        else if(sceneManager.ActiveScene() == "Level 1"){
+        if (sceneManager.ActiveScene() == "Main Menu") {
+            editorBackground = false;
+            gameManager.updateMenu();
+        } else if (sceneManager.ActiveScene() == "Level 1") {
             gameManager.updateLevel1();
 
-        }
-        else if(sceneManager.ActiveScene() == "Level 2"){
+        } else if (sceneManager.ActiveScene() == "Level 2") {
             gameManager.updateLevel2();
-        }
-        else if(sceneManager.ActiveScene() == "Level 3"){
+        } else if (sceneManager.ActiveScene() == "Level 3") {
             gameManager.updateLevel3();
-        }
-        else if(sceneManager.ActiveScene() == "Editor") {
-            if(!editorBackground){
+        } else if (sceneManager.ActiveScene() == "Editor") {
+            if (!editorBackground) {
                 parent.fill(0);
                 parent.rectMode(parent.CORNER);
-                parent.rect(0,0,900,900);
+                parent.rect(0, 0, 900, 900);
                 editorBackground = true;
             }
-            if(!editorStarted) {
+            if (!editorStarted) {
                 gameEngineManager.startup();
                 editorStarted = true;
             }
-                gameEngineManager.update();
-            }
-        else if(sceneManager.ActiveScene() == "Level Selector"){
+            gameEngineManager.update();
+        } else if (sceneManager.ActiveScene() == "Level Selector") {
             gameManager.updateSelector();
         }
     }
 
-    public void KeyPressed(){
-            gameManager.checkInput();
-       // player_input.key_handler(key, keyCode, true);
+    public void KeyPressed() {
+        gameManager.checkInput();
     }
-
-//    public void KeyReleased(char key, int keyCode){
-//        //player_input.key_handler(key, keyCode, false);
-//    }
-
 }

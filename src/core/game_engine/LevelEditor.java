@@ -49,16 +49,11 @@ public class LevelEditor {
                 if (isGridEmpty(roundedX, roundedY)) {
                     player = new Player(parent, roundedX, roundedY);
                     objectsOnScreen.add(player);
-                    parent.fill(80);
-                    parent.textSize(15);
-                    parent.text("Already a player in the scene!", 300, 25);
+                    optionSelector.PlayerMessageHidden();
                 }
 
             } else if (optionSelector.SelectorManager() == 2 && player != null) {
-                parent.fill(255,0,0);
-                parent.textSize(15);
-                parent.text("Already a player in the scene!", 300, 20);
-                System.out.println("THERE IS ALREADY A PLAYER IN THE SCENE!");
+                optionSelector.PLayerMessageDisplayed();
             }
 
             //create finish Point
@@ -66,16 +61,11 @@ public class LevelEditor {
                 if (isGridEmpty(roundedX, roundedY)) {
                     finishPoint = new FinishPoint(parent, roundedX, roundedY);
                     objectsOnScreen.add(finishPoint);
-                    parent.fill(80);
-                    parent.textSize(15);
-                    parent.text("Already a player in the scene!", 300, 25);
+                    optionSelector.FinishMessageHidden();
 
                 }
             } else if (optionSelector.SelectorManager() == 3 && finishPoint != null) {
-                System.out.println("THERE IS ALREADY A FINISH POINT IN THE SCENE!");
-                parent.fill(255,0,0);
-                parent.textSize(15);
-                parent.text("Already a finish point in the scene!", 300, 20);
+              optionSelector.FinishMessageDisplayed();
             }
 
             //create key
@@ -86,8 +76,12 @@ public class LevelEditor {
                 }
             }
         }
+        updateCanvas();
     }
 
+    private void updateCanvas(){
+
+    }
     public void DisplaySaveLevel(){
         if(optionSelector.KeyCheck() == 10){
             saving = true;
@@ -101,19 +95,19 @@ public class LevelEditor {
     public void SaveOnSlot(){
         if(parent.keyCode == 88 && saving){
             dataManager.saveGameObjects(objectsOnScreen, "Level 2");
-            System.out.println("LEVEL 2 SAVED");
+            DisplayLevelSavedMessage();
             saving = false;
         }
         else if(parent.keyCode == 89 && saving){
             dataManager.saveGameObjects(objectsOnScreen, "Level 3");
-            System.out.println("LEVEL 3 SAVED");
+            DisplayLevelSavedMessage();
             saving = false;
         }
     }
 
     private void DisplayLevelSlotOptions(){
         parent.background(0);
-        parent.fill(255);
+        parent.fill(255,200,101);
         parent.noStroke();
         parent.rectMode(parent.CENTER);
         parent.rect(400,400,600,200);
@@ -125,7 +119,15 @@ public class LevelEditor {
         parent.text(" SAVE LEVEL",250, 360);
 
     }
-
+    private void DisplayLevelSavedMessage(){
+        parent.fill(255,200,101);
+        parent.noStroke();
+        parent.rectMode(parent.CENTER);
+        parent.rect(400,400,600,200);
+        parent.fill(0);
+        parent.textSize(50);
+        parent.text(" LEVEL SAVED ",230, 410);
+    }
     private boolean isGridEmpty(int x,int y) {
         for(GameObject gameObject : objectsOnScreen){
             if(gameObject.getX() == x && gameObject.getY() == y){
