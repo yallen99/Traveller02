@@ -4,10 +4,7 @@ import core.game_engine.GameObject;
 import core.game_engine.OptionSelector;
 import core.game_engine.PlayerController;
 import core.game_engine.data_management.DataManager;
-import core.game_engine.objects.FinishPoint;
-import core.game_engine.objects.Key;
-import core.game_engine.objects.Platform;
-import core.game_engine.objects.Player;
+import core.game_engine.objects.*;
 import processing.core.PApplet;
 import processing.data.JSONArray;
 import processing.data.JSONObject;
@@ -96,6 +93,7 @@ public class GameManager {
 
     /////////////////////////////////////// LEVEL 1 ///////////////////////////////////
     public void updateLevel1(){
+       // parent.frameRate(5);
         if(!level1){
             dataManager.loadLevelFile();
             CreateLevelLayout();
@@ -103,17 +101,17 @@ public class GameManager {
             level1 = true;
         }
         updateCanvas();
-    }
-
-    private void updateCanvas() {
-        parent.background(0);
-        for(GameObject gameObject : loadedObjects){
-            gameObject.updatePosition();
+        for(GameObject gameObject: loadedObjects){
+            if(gameObject.GetTag() == ObjectTags.PLAYER){
+                return;
+            }
+            player.Collision(gameObject);
         }
     }
 
     ///////////////////////////////////// LEVEL 2 /////////////////////////////////////
     public void updateLevel2(){
+       // parent.frameRate(5);
         if(!level2){
         dataManager.loadLevelFile();
         CreateLevelLayout();
@@ -121,10 +119,17 @@ public class GameManager {
         level2 = true;
         }
         updateCanvas();
+        for(GameObject gameObject: loadedObjects){
+            if(gameObject.GetTag() == ObjectTags.PLAYER){
+                return;
+            }
+            player.Collision(gameObject);
+        }
     }
 
     //////////////////////////////////// LEVEL 3 /////////////////////////////////////
     public void updateLevel3() {
+        //parent.frameRate(5);
         if (!level3) {
             dataManager.loadLevelFile();
             CreateLevelLayout();
@@ -132,6 +137,12 @@ public class GameManager {
             level3 = true;
         }
         updateCanvas();
+        for(GameObject gameObject: loadedObjects){
+            if(gameObject.GetTag() == ObjectTags.PLAYER){
+                return;
+            }
+            player.Collision(gameObject);
+        }
     }
 
     ///////////////////////////////////// LEVEL SELECTOR //////////////////////////////
@@ -142,7 +153,6 @@ public class GameManager {
         optionSelector.CreateSelectorUI();
         sceneManager.linkScenes();
     }
-
     private void CheckForSelectorButtons() {
         parent.fill(242, 233, 189);
         parent.noStroke();
@@ -188,9 +198,14 @@ public class GameManager {
             parent.text("You can rewrite this level \nby creating a new one \nand saving it on 2nd slot", 425, 545);
         }
     }
-
     public void checkInput() {
         playerController.checkInput();
+    }
+    private void updateCanvas() {
+        parent.background(0);
+        for(GameObject gameObject : loadedObjects){
+            gameObject.updatePosition();
+        }
     }
 }
 

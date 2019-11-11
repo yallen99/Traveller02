@@ -23,7 +23,10 @@ public class Platform extends GameObject {
         parent.noStroke();
         parent.rect(x, y, 50, 50);
     }
-
+    @Override
+    public ObjectTags GetTag() {
+        return tag;
+    }
     @Override
     public JSONObject serializeToJSON(){
         JSONObject gameObjectData = super.serializeToJSON();

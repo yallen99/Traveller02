@@ -169,4 +169,8 @@ public class LevelEditor {
         }
     }
 
+    public void removeObject(GameObject otherObject){
+        objectsOnScreen.remove(otherObject);
+    }
+
 }

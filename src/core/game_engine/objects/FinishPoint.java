@@ -18,7 +18,10 @@ public class FinishPoint extends Platform {
         parent.noStroke();
         parent.rect(x, y, 50, 50);
     }
-
+    @Override
+    public ObjectTags GetTag() {
+        return tag;
+    }
     @Override
     public void nameEntity(){
         System.out.println("Finish point");

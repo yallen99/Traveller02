@@ -25,6 +25,10 @@ public class Key extends GameObject {
     }
 
     @Override
+    public ObjectTags GetTag() {
+        return tag;
+    }
+    @Override
     public void loadJSONObject(JSONObject json) {
 
     }
