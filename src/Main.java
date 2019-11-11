@@ -17,11 +17,11 @@ public class Main extends PApplet
     }
 
     public void keyPressed(){
-        test_game.KeyPressed(key, keyCode);
+        test_game.KeyPressed();
     }
-    public void keyReleased(){
-        test_game.KeyReleased(key,keyCode);
-    }
+//    public void keyReleased(){
+//        test_game.KeyReleased(key,keyCode);
+//    }
 
     public static void main(String args[]){
         PApplet.main("Main" );

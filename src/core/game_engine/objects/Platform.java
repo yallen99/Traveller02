@@ -11,16 +11,17 @@ public class Platform extends GameObject {
         super(p,x,y);
     }
 
+
     @Override
-    public void createObject() {
+    public void nameEntity() {
+    }
+
+    @Override
+    public void updatePosition() {
         parent.fill(64, 29, 9);
         parent.rectMode(parent.CENTER);
         parent.noStroke();
         parent.rect(x, y, 50, 50);
-    }
-
-    @Override
-    public void nameEntity() {
     }
 
     @Override

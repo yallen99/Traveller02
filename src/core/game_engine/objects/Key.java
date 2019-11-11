@@ -9,18 +9,18 @@ public class Key extends GameObject {
         super(p,x,y);
     }
 
-    @Override
-    public void createObject() {
-        parent.fill(88, 61, 140);
-        parent.noStroke();
-        parent.rectMode(PApplet.CENTER);
-        parent.rect(x,y,25,25);
-        nameEntity();
-    }
 
     @Override
     public void nameEntity() {
         System.out.println("I am a KEY");
+    }
+
+    @Override
+    public void updatePosition() {
+        parent.fill(88, 61, 140);
+        parent.noStroke();
+        parent.rectMode(PApplet.CENTER);
+        parent.rect(x,y,25,25);
     }
 
     @Override

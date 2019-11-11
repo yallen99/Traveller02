@@ -13,7 +13,6 @@ public abstract class GameObject implements Serializable {
         parent = p;
         this.x = x;
         this.y = y;
-        createObject();
     }
 
     public int getX() {
@@ -24,9 +23,9 @@ public abstract class GameObject implements Serializable {
         return y;
     }
 
-    public abstract void createObject();
 
     public abstract void nameEntity();
+    public abstract void updatePosition();
 
     public void coverMe() {
         parent.fill(0);

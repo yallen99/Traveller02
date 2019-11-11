@@ -1,42 +1,33 @@
 package core.game_engine;
 
-import core.game_engine.input_commands.Moveable;
+import core.game_engine.objects.Player;
 import processing.core.PApplet;
 import processing.core.PVector;
 
-public class PlayerController implements Moveable {
+public class PlayerController {
     PApplet parent;
-    int x = 300, y = 300;
-    public PVector position;
+    public Player player;
 
-    public PlayerController(PApplet p, int x, int y) {
+
+    public PlayerController(PApplet p) {
         parent = p;
-        this.position = new PVector(x, y, 0);
     }
 
-    public void create_player() {
-        parent.fill(255, 255, 0);
-        parent.noStroke();
-        parent.ellipse(position.x, position.y, 25, 25);
+    public void addPlayer(Player player) {
+        this.player = player;
     }
 
-    @Override
-    public void move_right() {
-        position.x += 50;
-    }
+    public void checkInput() {
+        if (player == null) return;
 
-    @Override
-    public void move_left() {
-        this.position.x -= 50;
-    }
-
-    @Override
-    public void move_up() {
-        this.position.y -= 50;
-    }
-
-    @Override
-    public void move_down() {
-        this.position.y += 50;
+        if (parent.key == 'w' || parent.key == 'W') {
+            player.moveUp();
+        } else if (parent.key == 's' || parent.key == 'S') {
+            player.moveDown();
+        } else if (parent.key == 'a' || parent.key == 'A') {
+            player.moveLeft();
+        } else if (parent.key == 'd' || parent.key == 'D') {
+            player.moveRight();
+        }
     }
 }

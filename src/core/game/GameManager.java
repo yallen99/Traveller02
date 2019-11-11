@@ -2,6 +2,7 @@ package core.game;
 
 import core.game_engine.GameObject;
 import core.game_engine.OptionSelector;
+import core.game_engine.PlayerController;
 import core.game_engine.data_management.DataManager;
 import core.game_engine.objects.FinishPoint;
 import core.game_engine.objects.Key;
@@ -16,7 +17,8 @@ import java.util.ArrayList;
 
 public class GameManager {
     PApplet parent;
-    public GameManager(PApplet p){ parent = p; }
+    public GameManager(PApplet p){ parent = p;
+    playerController = new PlayerController(parent);}
 
     OptionSelector optionSelector;
     SceneManager sceneManager;
@@ -24,6 +26,13 @@ public class GameManager {
     ArrayList<GameObject> loadedObjects;
     JSONArray levelObjectsArray;
     String itemType = "Platform";
+    private Player player;
+    PlayerController playerController;
+    private boolean level1 = false;
+    private boolean level2 = false;
+    private boolean level3 = false;
+
+
 
 
     public void start(){
@@ -37,6 +46,7 @@ public class GameManager {
         parent.rect(0,0,900,900);
     }
     public void loadLevelObjects(String listName){
+
         loadedObjects = new ArrayList();
         if(dataManager.levelData != null){
             levelObjectsArray = dataManager.levelData.getJSONArray(listName);
@@ -61,7 +71,9 @@ public class GameManager {
             gameObject = key;
         } else if ("PLAYER".equals(itemType)) {
             Player player = new Player(this.parent, x, y);
+            this.player = player;
             loadedObjects.add(player);
+            playerController.addPlayer(player);
             gameObject = player;
         }
         else if ("FINISH".equals(itemType)) {
@@ -83,10 +95,20 @@ public class GameManager {
 
     /////////////////////////////////////// LEVEL 1 ///////////////////////////////////
     public void updateLevel1(){
+        if(!level1){
+            dataManager.loadLevelFile();
+            CreateLevelLayout();
+            loadLevelObjects("Level 1");
+            level1 = true;
+        }
+        updateCanvas();
+    }
 
-        dataManager.loadLevelFile();
-        CreateLevelLayout();
-        loadLevelObjects("Level 1");
+    private void updateCanvas() {
+        parent.background(0);
+        for(GameObject gameObject : loadedObjects){
+            gameObject.updatePosition();
+        }
     }
 
     ///////////////////////////////////// LEVEL 2 /////////////////////////////////////
@@ -156,6 +178,10 @@ public class GameManager {
             parent.textSize(20);
             parent.text("You can rewrite this level \nby creating a new one \nand saving it on 2nd slot", 425, 545);
         }
+    }
+
+    public void checkInput() {
+        playerController.checkInput();
     }
 }
 
