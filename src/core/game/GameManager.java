@@ -93,7 +93,7 @@ public class GameManager {
 
     /////////////////////////////////////// LEVEL 1 ///////////////////////////////////
     public void updateLevel1(){
-       // parent.frameRate(5);
+       // parent.frameRate(10);
         if(!level1){
             dataManager.loadLevelFile();
             CreateLevelLayout();
@@ -102,10 +102,8 @@ public class GameManager {
         }
         updateCanvas();
         for(GameObject gameObject: loadedObjects){
-            if(gameObject.GetTag() == ObjectTags.PLAYER){
-                return;
-            }
-            player.Collision(gameObject);
+            if(gameObject.GetTag() == ObjectTags.PLAYER){ return; }
+            player.CheckWallCollision(gameObject);
         }
     }
 
@@ -123,8 +121,8 @@ public class GameManager {
             if(gameObject.GetTag() == ObjectTags.PLAYER){
                 return;
             }
-            player.Collision(gameObject);
-        }
+            player.GetWalls();
+            player.CheckWallCollision(gameObject); }
     }
 
     //////////////////////////////////// LEVEL 3 /////////////////////////////////////
@@ -141,8 +139,7 @@ public class GameManager {
             if(gameObject.GetTag() == ObjectTags.PLAYER){
                 return;
             }
-            player.Collision(gameObject);
-        }
+            player.CheckWallCollision(gameObject);        }
     }
 
     ///////////////////////////////////// LEVEL SELECTOR //////////////////////////////

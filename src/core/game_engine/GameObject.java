@@ -2,6 +2,7 @@ package core.game_engine;
 import core.game_engine.data_management.Serializable;
 import core.game_engine.objects.ObjectTags;
 import processing.core.PApplet;
+import processing.core.PVector;
 import processing.data.JSONObject;
 
 public abstract class GameObject implements Serializable {
@@ -50,7 +51,6 @@ public abstract class GameObject implements Serializable {
     public Point getBottomRight() {
         return bottomRight;
     }
-
 
     public abstract void nameEntity();
     public abstract void updatePosition();

@@ -3,23 +3,47 @@ package core.game_engine.objects;
 import core.game_engine.GameObject;
 import core.game_engine.LevelEditor;
 import core.game_engine.Movable;
+import core.game_engine.Point;
+import org.jetbrains.annotations.NotNull;
 import processing.core.PApplet;
 import processing.data.JSONObject;
 
 public class Player extends GameObject implements Movable {
     ObjectTags tag = ObjectTags.PLAYER;
-    private int direction;
     LevelEditor levelEditor;
+    Point topLeft, topRight, bottomLeft, bottomRight, leftTop, leftBottom, rightTop, rightBottom, point;
+    private boolean topFree;
+    private boolean bottomFree;
+    private boolean leftFree;
+    private boolean rightFree;
+
+    private boolean isTopFree() {
+        return topFree;
+    }
+
+    private boolean isBottomFree() {
+        return bottomFree;
+    }
+
+    private boolean isLeftFree() {
+        return leftFree;
+    }
+
+    private boolean isRightFree() {
+        return rightFree;
+    }
+
+    public void GetWalls(){
+        isLeftFree();
+        isRightFree();
+        isBottomFree();
+        isTopFree();
+}
+
     public Player(PApplet p,int x,int y) {
         super(p,x,y);
         updatePosition();
         levelEditor = new LevelEditor(parent);
-    }
-
-
-
-    public void setDirection(int direction) {
-        this.direction = direction;
     }
 
     @Override
@@ -32,7 +56,6 @@ public class Player extends GameObject implements Movable {
         parent.fill(255, 200, 101);
         parent.noStroke();
         parent.ellipse(x, y, 25, 25);
-
     }
     @Override
     public ObjectTags GetTag() {
@@ -50,23 +73,52 @@ public class Player extends GameObject implements Movable {
     }
     @Override
     public void moveUp() {
-        y-=50;
+        if(isTopFree()) {
+            y -= 50;
+        }
     }
     @Override
     public void moveDown() {
-        y+=50;
+        if(isBottomFree()){
+        y+=50 ;
+        }
     }
     @Override
     public void moveRight() {
-        x+=50;
+        if(isRightFree()){
+        x+=50;}
     }
     @Override
     public void moveLeft() {
-        x-=50;
+        if(isLeftFree()){
+        x-=50 ;}
     }
 
+    @Override
+    public void getPoints(){
+        point = new Point(x,y);
+        topLeft = new Point(x-20, y-30);
+        topRight = new Point(x+20, y-30);
+        bottomLeft = new Point(x-25, y+30);
+        bottomRight = new Point(x+25, y+30);
+        leftTop = new Point(x-30, y-20);
+        leftBottom = new Point(x-30, y +20);
+        rightTop = new Point(x+30,  y-20);
+        rightBottom = new Point(x+30, y+20);
 
-    public void Collision(GameObject otherObject){
+    }
+
+    public void CheckWallCollision(GameObject otherObject){
+        if(otherObject.GetTag() == ObjectTags.PLATFORM){
+        CollisionUp(otherObject);
+        CollisionDown(otherObject);
+        CollisionLeft(otherObject);
+        CollisionRight(otherObject);
+    }
+    }
+
+    // for platforms
+    private void CollisionUp(@NotNull GameObject otherObject){
 //        if(((this.getBottomRight().GetX() >= otherObject.getTopLeft().GetX() &&
 //           this.getBottomRight().GetX() <= otherObject.getTopRight().GetX()) &&
 //           (this.getBottomRight().GetY() >= otherObject.getTopLeft().GetY() &&
@@ -76,33 +128,72 @@ public class Player extends GameObject implements Movable {
 //           this.getBottomLeft().GetX() >= otherObject.getTopLeft().GetX()) &&
 //          (this.getBottomLeft().GetY() >= otherObject.getTopRight().GetY() &&
 //           this.getBottomLeft().GetY() <= otherObject.getBottomRight().GetY()))){
-//
-//                         //found a simpler method :)
+//            System.out.println("collided");
 //        }
-
-        if(this.getPoint().GetX() == otherObject.getPoint().GetX() &&
-           this.getPoint().GetY() == otherObject.getPoint().GetY()) {
-            System.out.println("Collided with " + ObjectTags.PLATFORM);
-            if(otherObject.GetTag() == ObjectTags.PLATFORM){
-                if(direction == 0){
-                    y+=50;
-                }
-                if(direction == 1){
-                    x-=50;
-                }
-                if(direction == 2){
-                    y-=50;
-                }
-                if(direction == 3){
-                    x+=50;
-                }
+            if(topLeft.getY() <= otherObject.getBottomLeft().getY() &&
+            topRight.getY() <= otherObject.getBottomRight().getY() &&
+            point.getY() - otherObject.getPoint().getY() == 50 &&
+            point.getX() == otherObject.getPoint().getX()){
+                // System.out.println(otherObject.getPoint().getX() + "     " + otherObject.getPoint().getY());
+                // System.out.println("SOMETHING ABOVE !!!");
+                topFree = false;
             }
-            else if(otherObject.GetTag() == ObjectTags.COLLECTABLE){
-               // otherObject.coverMe();
-               // levelEditor.removeObject(otherObject);
-                System.out.println("COLLECTABLE + 1");
+            else if(!topFree && topLeft.getY() >= otherObject.getBottomLeft().getY() &&
+                    topRight.getY() >= otherObject.getBottomRight().getY() &&
+                    point.getY() - otherObject.getPoint().getY() != 50 &&
+                    point.getX() == otherObject.getPoint().getX()){
+                topFree = true;
             }
+    }
+    private void CollisionDown(@NotNull GameObject otherObject){
+        if(bottomLeft.getY() >= otherObject.getTopLeft().getY() &&
+            bottomRight.getY() >= otherObject.getTopRight().getY() &&
+                otherObject.getPoint().getY() - point.getY() == 50 &&
+                point.getX() == otherObject.getPoint().getX()){
+           // System.out.println("SOMETHING BELOW !!!");
+            bottomFree = false;
+        }
+        else if(!bottomFree && bottomLeft.getY() < otherObject.getTopLeft().getY() &&
+                bottomRight.getY() < otherObject.getTopRight().getY() &&
+                otherObject.getPoint().getY() - point.getY() != 50 &&
+                point.getX() == otherObject.getPoint().getX()){
+            bottomFree = true;
         }
     }
+
+    private void CollisionLeft(@NotNull GameObject otherObject){
+
+        if(leftTop.getX() <= otherObject.getTopRight().getX() &&
+        leftBottom.getX() <= otherObject.getBottomRight().getX() &&
+        point.getX() - otherObject.getPoint().getX() == 50 &&
+        point.getY() == otherObject.getPoint().getY()){
+          //  System.out.println("SOMETHING ON LEFT");
+        leftFree = false;
+        }
+        else if(!leftFree && leftTop.getX() >= otherObject.getTopRight().getX() &&
+                leftBottom.getX() >= otherObject.getBottomRight().getX() &&
+                point.getX() - otherObject.getPoint().getX() != 50 &&
+                point.getY() == otherObject.getPoint().getY()){
+            leftFree = true;
+        }
+    }
+
+    private void CollisionRight(@NotNull GameObject otherObject){
+
+        if(rightTop.getX() >= otherObject.getTopLeft().getX() &&
+        rightBottom.getX() >= otherObject.getBottomLeft().getX() &&
+        otherObject.getPoint().getX() - point.getX() == 50 &&
+        point.getY() == otherObject.getPoint().getY()){
+          //  System.out.println("SOMETHING ON RIGHT");
+       rightFree = false;
+        }
+        else if(!rightFree && rightTop.getX() <= otherObject.getTopLeft().getX() &&
+                rightBottom.getX() <= otherObject.getBottomLeft().getX() &&
+                otherObject.getPoint().getX() - point.getX() != 50 &&
+                point.getY() == otherObject.getPoint().getY()){
+            rightFree = true;
+        }
+    }
+
 
 }

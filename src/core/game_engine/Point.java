@@ -2,18 +2,18 @@ package core.game_engine;
 
 
 public class Point {
-    private int x;
-    private int y;
+    private float x;
+    private float y;
 
-    public Point(int x, int y) {
+    public Point(float x, float y) {
         this.x = x;
         this.y = y;
     }
 
-    public int GetX(){
+    public float getX(){
         return x;
     }
-    public int GetY(){
+    public float getY(){
         return y;
     }
 }
