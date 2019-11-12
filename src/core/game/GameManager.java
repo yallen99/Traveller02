@@ -21,6 +21,7 @@ public class GameManager {
     SceneManager sceneManager;
     DataManager dataManager;
     ArrayList<GameObject> loadedObjects;
+    ArrayList<GameObject> collectables;
     JSONArray levelObjectsArray;
     String itemType = "Platform";
     private Player player;
@@ -28,6 +29,7 @@ public class GameManager {
     private boolean level1 = false;
     private boolean level2 = false;
     private boolean level3 = false;
+    private boolean activeFinishPoint = false;
 
 
 
@@ -43,7 +45,7 @@ public class GameManager {
         parent.rect(0,0,900,900);
     }
     public void loadLevelObjects(String listName){
-
+        collectables = new ArrayList();
         loadedObjects = new ArrayList();
         if(dataManager.levelData != null){
             levelObjectsArray = dataManager.levelData.getJSONArray(listName);
@@ -65,6 +67,7 @@ public class GameManager {
         } else if ("COLLECTABLE".equals(itemType)) {
             Key key = new Key(this.parent, x, y);
             loadedObjects.add(key);
+            collectables.add(key);
             gameObject = key;
         } else if ("PLAYER".equals(itemType)) {
             Player player = new Player(this.parent, x, y);
@@ -79,6 +82,32 @@ public class GameManager {
             gameObject = finish;
         }
         return gameObject;
+    }
+
+    private void CheckForCollectables() {
+        if (collectables.size() == 0) {
+            activeFinishPoint = true;
+        } else {
+            activeFinishPoint = false;
+        }
+    }
+
+    private void CheckLevelCollisions(){
+        for(GameObject gameObject: loadedObjects){
+            if(gameObject.GetTag() == ObjectTags.PLAYER){ return; }
+            player.CheckWallCollision(gameObject);
+            player.CheckSpecialTileCollision(gameObject);
+            if(player.CheckSpecialTileCollision(gameObject) && gameObject.GetTag() == ObjectTags.COLLECTABLE){
+                if(loadedObjects.contains(gameObject)){
+                    //todo
+                }
+                collectables.remove(gameObject);
+            }
+            if(player.CheckFinishCollision(gameObject) && itemType.equals("FINISH") && activeFinishPoint){
+
+            }
+
+        }
     }
 
     ///////////////////////////////////// MENU ////////////////////////////////////////
@@ -100,11 +129,11 @@ public class GameManager {
             loadLevelObjects("Level 1");
             level1 = true;
         }
+        System.out.println(collectables.size());
+        System.out.println(activeFinishPoint);
         updateCanvas();
-        for(GameObject gameObject: loadedObjects){
-            if(gameObject.GetTag() == ObjectTags.PLAYER){ return; }
-            player.CheckWallCollision(gameObject);
-        }
+        CheckForCollectables();
+        CheckLevelCollisions();
     }
 
     ///////////////////////////////////// LEVEL 2 /////////////////////////////////////
@@ -116,13 +145,11 @@ public class GameManager {
         loadLevelObjects("Level 2");
         level2 = true;
         }
+        System.out.println(collectables.size());
+        System.out.println(activeFinishPoint);
         updateCanvas();
-        for(GameObject gameObject: loadedObjects){
-            if(gameObject.GetTag() == ObjectTags.PLAYER){
-                return;
-            }
-            player.GetWalls();
-            player.CheckWallCollision(gameObject); }
+        CheckLevelCollisions();
+        CheckForCollectables();
     }
 
     //////////////////////////////////// LEVEL 3 /////////////////////////////////////
@@ -134,12 +161,11 @@ public class GameManager {
             loadLevelObjects("Level 3");
             level3 = true;
         }
+        //System.out.println(collectables.size());
+        //System.out.println(activeFinishPoint);
         updateCanvas();
-        for(GameObject gameObject: loadedObjects){
-            if(gameObject.GetTag() == ObjectTags.PLAYER){
-                return;
-            }
-            player.CheckWallCollision(gameObject);        }
+        CheckForCollectables();
+        CheckLevelCollisions();
     }
 
     ///////////////////////////////////// LEVEL SELECTOR //////////////////////////////
