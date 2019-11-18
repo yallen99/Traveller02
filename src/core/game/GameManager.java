@@ -31,8 +31,8 @@ public class GameManager {
     private boolean level2 = false;
     private boolean level3 = false;
     private boolean activeFinishPoint = false;
-    private  boolean collect = false;
-
+ //   private  boolean collect = false;
+    private boolean levelFinished = false;
 
 
 
@@ -90,7 +90,6 @@ public class GameManager {
         if (collectables.size() == 0) {
             activeFinishPoint = true;
         }
-        System.out.println(activeFinishPoint);
     }
 
     private void CheckLevelCollisions(){
@@ -133,14 +132,17 @@ public class GameManager {
             }
             //finish point collision
             if(player.CheckSpecialTileCollision(gameObject) && activeFinishPoint && gameObject.GetTag() == ObjectTags.FINISH){
-                System.out.println("Congrats!!");
+                levelFinished = true;
             }
         }
 //        loadedObjects.remove(deletionList);
 //        deletionList.removeAll(deletionList);
+
     }
 
-
+    public boolean IsLevelFnished(){
+        return levelFinished;
+    }
 
     ///////////////////////////////////// MENU ////////////////////////////////////////
     public void updateMenu(){
@@ -208,8 +210,6 @@ public class GameManager {
         optionSelector.CreateSelectorUI();
         sceneManager.linkScenes();
     }
-
-
 
     private void CheckForSelectorButtons() {
         parent.fill(242, 233, 189);

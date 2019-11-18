@@ -46,10 +46,20 @@ public class TestGame {
             gameManager.updateMenu();
         } else if (sceneManager.ActiveScene() == "Level 1") {
             gameManager.updateLevel1();
+            if(gameManager.IsLevelFnished()){
+                optionSelector.CongratsScreen();
+
+            }
         } else if (sceneManager.ActiveScene() == "Level 2") {
             gameManager.updateLevel2();
+            if(gameManager.IsLevelFnished()){
+                optionSelector.CongratsScreen();
+            }
         } else if (sceneManager.ActiveScene() == "Level 3") {
             gameManager.updateLevel3();
+            if(gameManager.IsLevelFnished()){
+                optionSelector.CongratsScreen();
+            }
         } else if (sceneManager.ActiveScene() == "Editor") {
             if (!editorBackground) {
                 parent.fill(0);

@@ -291,4 +291,16 @@ public class OptionSelector {
             parent.textSize(90);
             parent.text("THE MAZE", 200, 200);
         }
+
+        public void CongratsScreen(){
+            parent.fill(0);
+            parent.rectMode(parent.CORNER);
+            parent.rect(0, 0, 900, 900);
+            parent.fill(255,200,101);
+            parent.textSize(50);
+            parent.text("CONGRATULATIONS!", 150, 300);
+            parent.fill(242, 233, 189);
+            parent.textSize(25);
+            parent.text("Click Backspace to return \n     to the main menu", 250, 400);
+        }
 }

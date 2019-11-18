@@ -68,10 +68,15 @@ public class SceneManager {
 
         else if(ActiveScene() == "Level 1" || ActiveScene() == "Level 2" || ActiveScene() == "Level 3"){
             optionSelector = new OptionSelector(parent);
+
             if (optionSelector.SelectorManager() == 100) {
                 System.out.println("BACKED");
                 scene = "Main Menu";
                 optionSelector = null;
+            }
+
+            if(gameManager.IsLevelFnished()){
+                scene = "Main Menu";
             }
         }
 
