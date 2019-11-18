@@ -1,4 +1,4 @@
-package core.game_engine;
+package core;
 import core.game.SceneManager;
 import processing.core.PApplet;
 

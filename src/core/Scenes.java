@@ -1,5 +1,0 @@
-package core;
-
-public enum Scenes {
-    MAINMENU, LEVELEDITOR, LEVEL1, LEVEL2, LEVEL3, GAMEOVER, LEVELSELECTOR;
-}

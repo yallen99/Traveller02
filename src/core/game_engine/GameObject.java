@@ -2,7 +2,6 @@ package core.game_engine;
 import core.game_engine.data_management.Serializable;
 import core.game_engine.objects.ObjectTags;
 import processing.core.PApplet;
-import processing.core.PVector;
 import processing.data.JSONObject;
 
 public abstract class GameObject implements Serializable {
@@ -11,8 +10,6 @@ public abstract class GameObject implements Serializable {
     Point topLeft, topRight, bottomLeft, bottomRight;
     protected int x;
     protected int y;
-
-
 
     public GameObject(PApplet p, int x, int y) {
         parent = p;
@@ -24,7 +21,12 @@ public abstract class GameObject implements Serializable {
     public Point getPoint() {
         return point;
     }
-
+    public int getX() {
+        return x;
+    }
+    public int getY() {
+        return y;
+    }
     protected void getPoints(){
         point = new Point(x,y);
         topLeft = new Point(x-25, y-25);
@@ -33,12 +35,6 @@ public abstract class GameObject implements Serializable {
         bottomRight = new Point(x+25, y+25);
     }
 
-    public int getX() {
-        return x;
-    }
-    public int getY() {
-        return y;
-    }
     public Point getTopLeft() {
         return topLeft;
     }

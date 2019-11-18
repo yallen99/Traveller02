@@ -1,6 +1,5 @@
 package core.game;
-import core.Scenes;
-import core.game_engine.OptionSelector;
+import core.OptionSelector;
 import processing.core.PApplet;
 
 public class SceneManager {
@@ -76,9 +75,8 @@ public class SceneManager {
             }
         }
 
-        else if(ActiveScene() == "Clear Data"){
-            System.out.println("DATA CLEAAAAAAAAAAAAAAAAAAAAAAAAAAAREEEEEEEEEEEEED");
-        }
+//        else if(ActiveScene() == "Clear Data"){
+//        }
     }
 }
 

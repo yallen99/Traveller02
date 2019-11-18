@@ -1,7 +1,7 @@
 package core.game;
 
 import core.game_engine.GameObject;
-import core.game_engine.OptionSelector;
+import core.OptionSelector;
 import core.game_engine.PlayerController;
 import core.game_engine.data_management.DataManager;
 import core.game_engine.objects.*;
@@ -22,6 +22,7 @@ public class GameManager {
     DataManager dataManager;
     ArrayList<GameObject> loadedObjects;
     ArrayList<GameObject> collectables;
+//    ArrayList<GameObject> deletionList;
     JSONArray levelObjectsArray;
     String itemType = "Platform";
     private Player player;
@@ -30,6 +31,7 @@ public class GameManager {
     private boolean level2 = false;
     private boolean level3 = false;
     private boolean activeFinishPoint = false;
+    private  boolean collect = false;
 
 
 
@@ -45,7 +47,7 @@ public class GameManager {
         parent.rect(0,0,900,900);
     }
     public void loadLevelObjects(String listName){
-        collectables = new ArrayList();
+        collectables = new ArrayList<GameObject>();
         loadedObjects = new ArrayList();
         if(dataManager.levelData != null){
             levelObjectsArray = dataManager.levelData.getJSONArray(listName);
@@ -53,12 +55,12 @@ public class GameManager {
 
                 JSONObject objectData =(JSONObject)levelObjectsArray.get(i);
                 itemType = objectData.getString("tag");
-                add_object(objectData.getInt("x")
+                addObject(objectData.getInt("x")
                         ,objectData.getInt("y"));
             }
         }
     }
-    private GameObject add_object(int x, int y){
+    private GameObject addObject(int x, int y){
         GameObject gameObject = null;
         if ("PLATFORM".equals(itemType)) {
             Platform gamePlatform = new Platform(this.parent, x, y);
@@ -87,28 +89,58 @@ public class GameManager {
     private void CheckForCollectables() {
         if (collectables.size() == 0) {
             activeFinishPoint = true;
-        } else {
-            activeFinishPoint = false;
         }
+        System.out.println(activeFinishPoint);
     }
 
     private void CheckLevelCollisions(){
-        for(GameObject gameObject: loadedObjects){
+        player.startOfLoop();
+        //for(GameObject gameObject: loadedObjects){
+        for (int i = 0; i < loadedObjects.size(); i++) {
+            GameObject gameObject = loadedObjects.get(i);
             if(gameObject.GetTag() == ObjectTags.PLAYER){ return; }
-            player.CheckWallCollision(gameObject);
+
+            //platform collision check
+            if(gameObject.GetTag() == ObjectTags.PLATFORM) {
+                player.CollisionUp(gameObject);
+                player.CollisionDown(gameObject);
+                player.CollisionLeft(gameObject);
+                player.CollisionRight(gameObject);
+//            if(!player.CollisionUp(gameObject)){
+//                // has a collision
+//                return;
+//            }
+//             if(!player.CollisionDown(gameObject)){
+//                return;
+//            }
+//           if(!player.CollisionLeft(gameObject)){
+//                return;
+//            }
+//           if(!player.CollisionRight(gameObject)){
+//                return;
+//            }
+            }
             player.CheckSpecialTileCollision(gameObject);
+
+            //key collision
             if(player.CheckSpecialTileCollision(gameObject) && gameObject.GetTag() == ObjectTags.COLLECTABLE){
-                if(loadedObjects.contains(gameObject)){
-                    //todo
-                }
                 collectables.remove(gameObject);
-            }
-            if(player.CheckFinishCollision(gameObject) && itemType.equals("FINISH") && activeFinishPoint){
+                loadedObjects.remove(gameObject);
+//                deletionList = new ArrayList<GameObject>();
+//                deletionList.add(gameObject);
+                System.out.println(collectables.size());
 
             }
-
+            //finish point collision
+            if(player.CheckSpecialTileCollision(gameObject) && activeFinishPoint && gameObject.GetTag() == ObjectTags.FINISH){
+                System.out.println("Congrats!!");
+            }
         }
+//        loadedObjects.remove(deletionList);
+//        deletionList.removeAll(deletionList);
     }
+
+
 
     ///////////////////////////////////// MENU ////////////////////////////////////////
     public void updateMenu(){
@@ -122,50 +154,50 @@ public class GameManager {
 
     /////////////////////////////////////// LEVEL 1 ///////////////////////////////////
     public void updateLevel1(){
-       // parent.frameRate(10);
         if(!level1){
             dataManager.loadLevelFile();
             CreateLevelLayout();
             loadLevelObjects("Level 1");
             level1 = true;
         }
-        System.out.println(collectables.size());
-        System.out.println(activeFinishPoint);
         updateCanvas();
         CheckForCollectables();
         CheckLevelCollisions();
+
+       // System.out.println(collectables.size());
+       // System.out.println(activeFinishPoint);
     }
 
     ///////////////////////////////////// LEVEL 2 /////////////////////////////////////
     public void updateLevel2(){
-       // parent.frameRate(5);
         if(!level2){
         dataManager.loadLevelFile();
         CreateLevelLayout();
         loadLevelObjects("Level 2");
         level2 = true;
         }
-        System.out.println(collectables.size());
-        System.out.println(activeFinishPoint);
         updateCanvas();
         CheckLevelCollisions();
         CheckForCollectables();
+
+        //System.out.println(collectables.size());
+        //System.out.println(activeFinishPoint);
     }
 
     //////////////////////////////////// LEVEL 3 /////////////////////////////////////
     public void updateLevel3() {
-        //parent.frameRate(5);
         if (!level3) {
             dataManager.loadLevelFile();
             CreateLevelLayout();
             loadLevelObjects("Level 3");
             level3 = true;
         }
-        //System.out.println(collectables.size());
-        //System.out.println(activeFinishPoint);
         updateCanvas();
         CheckForCollectables();
         CheckLevelCollisions();
+
+       // System.out.println(collectables.size());
+       // System.out.println(activeFinishPoint);
     }
 
     ///////////////////////////////////// LEVEL SELECTOR //////////////////////////////
@@ -176,6 +208,9 @@ public class GameManager {
         optionSelector.CreateSelectorUI();
         sceneManager.linkScenes();
     }
+
+
+
     private void CheckForSelectorButtons() {
         parent.fill(242, 233, 189);
         parent.noStroke();

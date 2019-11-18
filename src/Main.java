@@ -1,23 +1,23 @@
 import processing.core.PApplet;
-import core.game.test_game;
+import core.game.TestGame;
 public class Main extends PApplet
 {
-    test_game test_game;
+    TestGame testGame;
 
     public void settings(){size(801, 801);}
 
     public void setup(){
         background(0);
         frameRate(30);
-        test_game = new test_game(this);
-        test_game.startGame();
+        testGame = new TestGame(this);
+        testGame.startGame();
     }
     public void draw(){
-        test_game.updateGame();
+        testGame.updateGame();
     }
 
     public void keyPressed(){
-        test_game.KeyPressed();
+        testGame.KeyPressed();
     }
 //    public void keyReleased(){
 //        test_game.KeyReleased(key,keyCode);

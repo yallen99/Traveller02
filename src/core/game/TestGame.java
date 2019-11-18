@@ -1,11 +1,10 @@
 package core.game;
-import core.game_engine.OptionSelector;
+import core.OptionSelector;
 import core.game_engine.GameEngineManager;
-import core.game_engine.PlayerController;
 import core.game_engine.data_management.DataManager;
 import processing.core.PApplet;
 
-public class test_game {
+public class TestGame {
     GameEngineManager gameEngineManager;
     OptionSelector optionSelector;
     SceneManager sceneManager;
@@ -18,7 +17,7 @@ public class test_game {
 
     PApplet parent;
 
-    public test_game(PApplet p) {
+    public TestGame(PApplet p) {
         parent = p;
     }
 
@@ -47,7 +46,6 @@ public class test_game {
             gameManager.updateMenu();
         } else if (sceneManager.ActiveScene() == "Level 1") {
             gameManager.updateLevel1();
-
         } else if (sceneManager.ActiveScene() == "Level 2") {
             gameManager.updateLevel2();
         } else if (sceneManager.ActiveScene() == "Level 3") {

@@ -1,5 +1,6 @@
 package core.game_engine;
 
+import core.OptionSelector;
 import core.game_engine.data_management.DataManager;
 import core.game_engine.objects.FinishPoint;
 import core.game_engine.objects.Key;

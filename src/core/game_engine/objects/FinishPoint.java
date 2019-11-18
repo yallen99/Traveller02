@@ -14,17 +14,16 @@ public class FinishPoint extends GameObject {
 
     @Override
     public void updatePosition() {
-        parent.noFill();
+        parent.fill(71, 217, 199);
         parent.rectMode(parent.CENTER);
-        parent.stroke(71, 217, 199);
-        parent.strokeWeight(5);
+        parent.noStroke();
         parent.rect(x, y, 50, 50);
     }
     @Override
     public ObjectTags GetTag() {
         return tag;
-
     }
+
     @Override
     public void nameEntity(){
         System.out.println("Finish point");
