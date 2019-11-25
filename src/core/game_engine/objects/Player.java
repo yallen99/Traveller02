@@ -8,6 +8,8 @@ import org.jetbrains.annotations.NotNull;
 import processing.core.PApplet;
 import processing.data.JSONObject;
 
+import java.util.ArrayList;
+
 public class Player extends GameObject implements Movable {
     ObjectTags tag = ObjectTags.PLAYER;
     LevelEditor levelEditor;
@@ -16,6 +18,8 @@ public class Player extends GameObject implements Movable {
     private boolean bottomFree = true;
     private boolean leftFree= true;
     private boolean rightFree = true;
+    Platform platform;
+    ArrayList<Platform> newPlatforms = new ArrayList();
 
     public Player(PApplet p,int x,int y) {
         super(p,x,y);
@@ -52,26 +56,54 @@ public class Player extends GameObject implements Movable {
     public void moveUp() {
         if(topFree) {
             y -= 50;
+            platform = new Platform(parent, this.getX(), this.getY()+50);
+            newPlatforms.add(platform);
         }
     }
     @Override
     public void moveDown() {
         if(bottomFree){
         y+=50 ;
+            platform = new Platform(parent, this.getX(), this.getY()-50);
+            newPlatforms.add(platform);
         }
+
     }
     @Override
     public void moveRight() {
         if(rightFree){
         x+=50;
+            platform = new Platform(parent, this.getX()-50, this.getY());
+            newPlatforms.add(platform);
         }
+
 
     }
     @Override
     public void moveLeft() {
         if(leftFree){
         x-=50 ;
+            platform = new Platform(parent, this.getX()+50, this.getY());
+            newPlatforms.add(platform);
         }
+
+    }
+
+    public boolean Blocked(){
+        if(!topFree && !bottomFree && !leftFree && !rightFree){
+            return true;
+        }
+         return false;
+    }
+
+    public void CheckNewPlatformsCollision(){
+     for(Platform platform: newPlatforms){
+         CollisionDown(platform);
+         CollisionUp(platform);
+         CollisionRight(platform);
+         CollisionLeft(platform);
+         System.out.println(topFree +"    "+ bottomFree +"     "+leftFree+"     "+rightFree);
+     }
 
     }
 
@@ -97,14 +129,7 @@ public class Player extends GameObject implements Movable {
         }
         return false;
     }
-    public boolean CheckFinishCollision(GameObject otherObject){
-        if(otherObject.getPoint().getY() == point.getY() &&
-            otherObject.getPoint().getX() == point.getX()){
-            System.out.println("YAAAAAAAAAAAAAAAAAAAAAAAAAAAAY");
-            return true;
-        }
-        return false;
-    }
+
 public void startOfLoop(){
     topFree = true; leftFree = true; rightFree = true; bottomFree = true;
 }

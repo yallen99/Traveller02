@@ -303,4 +303,16 @@ public class OptionSelector {
             parent.textSize(25);
             parent.text("Click Backspace to return \n     to the main menu", 250, 400);
         }
+
+        public void GameOverScene(){
+            parent.fill(0);
+            parent.rectMode(parent.CORNER);
+            parent.rect(0, 0, 900, 900);
+            parent.fill(255,200,101);
+            parent.textSize(50);
+            parent.text("GAME OVER", 250, 300);
+            parent.fill(242, 233, 189);
+            parent.textSize(25);
+            parent.text("Click Backspace to return \n     to the main menu", 250, 400);
+        }
 }

@@ -92,15 +92,17 @@ public class GameManager {
         }
     }
 
-    private void CheckLevelCollisions(){
+    private void CheckLevelCollisions() {
         player.startOfLoop();
         //for(GameObject gameObject: loadedObjects){
         for (int i = 0; i < loadedObjects.size(); i++) {
             GameObject gameObject = loadedObjects.get(i);
-            if(gameObject.GetTag() == ObjectTags.PLAYER){ return; }
+            if (gameObject.GetTag() == ObjectTags.PLAYER) {
+                return;
+            }
 
             //platform collision check
-            if(gameObject.GetTag() == ObjectTags.PLATFORM) {
+            if (gameObject.GetTag() == ObjectTags.PLATFORM) {
                 player.CollisionUp(gameObject);
                 player.CollisionDown(gameObject);
                 player.CollisionLeft(gameObject);
@@ -122,7 +124,7 @@ public class GameManager {
             player.CheckSpecialTileCollision(gameObject);
 
             //key collision
-            if(player.CheckSpecialTileCollision(gameObject) && gameObject.GetTag() == ObjectTags.COLLECTABLE){
+            if (player.CheckSpecialTileCollision(gameObject) && gameObject.GetTag() == ObjectTags.COLLECTABLE) {
                 collectables.remove(gameObject);
                 loadedObjects.remove(gameObject);
 //                deletionList = new ArrayList<GameObject>();
@@ -131,13 +133,12 @@ public class GameManager {
 
             }
             //finish point collision
-            if(player.CheckSpecialTileCollision(gameObject) && activeFinishPoint && gameObject.GetTag() == ObjectTags.FINISH){
+            if (player.CheckSpecialTileCollision(gameObject) && activeFinishPoint && gameObject.GetTag() == ObjectTags.FINISH) {
                 levelFinished = true;
             }
         }
 //        loadedObjects.remove(deletionList);
 //        deletionList.removeAll(deletionList);
-
     }
 
     public boolean IsLevelFnished(){
@@ -165,8 +166,13 @@ public class GameManager {
         updateCanvas();
         CheckForCollectables();
         CheckLevelCollisions();
+        player.CheckNewPlatformsCollision();
 
-       // System.out.println(collectables.size());
+        if(player.Blocked()){
+            optionSelector.GameOverScene();
+        }
+
+        // System.out.println(collectables.size());
        // System.out.println(activeFinishPoint);
     }
 
@@ -181,6 +187,12 @@ public class GameManager {
         updateCanvas();
         CheckLevelCollisions();
         CheckForCollectables();
+        player.CheckNewPlatformsCollision();
+
+
+        if(player.Blocked()){
+            optionSelector.GameOverScene();
+        }
 
         //System.out.println(collectables.size());
         //System.out.println(activeFinishPoint);
@@ -197,6 +209,11 @@ public class GameManager {
         updateCanvas();
         CheckForCollectables();
         CheckLevelCollisions();
+        player.CheckNewPlatformsCollision();
+
+        if(player.Blocked()){
+            optionSelector.GameOverScene();
+        }
 
        // System.out.println(collectables.size());
        // System.out.println(activeFinishPoint);
@@ -260,7 +277,7 @@ public class GameManager {
         playerController.checkInput();
     }
     private void updateCanvas() {
-        parent.background(0);
+       // parent.background(0);
         for(GameObject gameObject : loadedObjects){
             gameObject.updatePosition();
         }
