@@ -83,6 +83,7 @@ public class OptionSelector {
                 FinishButton();
                 KeyButton();
                 ClearAllButton();
+                SaveMessage();
             }
         }
 
@@ -263,10 +264,10 @@ public class OptionSelector {
         }
 
         //editor messages
-         public void PlayerMessageHidden(){
-        parent.fill(80);
+         public void PlayerWarningMessage(){
+        parent.fill(255, 0,0);
         parent.textSize(15);
-        parent.text("Already a player in the scene!", 300, 25);
+        parent.text("Please put the player last!", 300, 20);
     }
          public void PLayerMessageDisplayed(){
         parent.fill(255,0,0);
@@ -283,6 +284,10 @@ public class OptionSelector {
         parent.textSize(15);
         parent.text("Already a finish point in the scene!", 300, 20);
     }
+        public void SaveMessage(){
+        parent.fill(255,255,0);
+        parent.textSize(15);
+        parent.text("Click ENTER to save", 50, 20); }
 
         //title
         public void Title(){
@@ -290,6 +295,8 @@ public class OptionSelector {
             parent.noStroke();
             parent.textSize(90);
             parent.text("THE MAZE", 200, 200);
+            parent.textSize(30);
+            parent.text(" Use the arrow keys \nto navigate the menu", 280, 300);
         }
 
         public void CongratsScreen(){

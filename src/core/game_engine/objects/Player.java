@@ -102,7 +102,7 @@ public class Player extends GameObject implements Movable {
          CollisionUp(platform);
          CollisionRight(platform);
          CollisionLeft(platform);
-         System.out.println(topFree +"    "+ bottomFree +"     "+leftFree+"     "+rightFree);
+        // System.out.println(topFree +"    "+ bottomFree +"     "+leftFree+"     "+rightFree);
      }
 
     }

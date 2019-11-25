@@ -46,11 +46,12 @@ public class LevelEditor {
                 }
             }
             //create player
-            if (parent.mousePressed && optionSelector.SelectorManager() == 2 && player == null) {
-                if (isGridEmpty(roundedX, roundedY)) {
+            if (optionSelector.SelectorManager() == 2 && player == null) {
+                optionSelector.PlayerWarningMessage();
+                if (isGridEmpty(roundedX, roundedY) && parent.mousePressed) {
                     player = new Player(parent, roundedX, roundedY);
                     objectsOnScreen.add(player);
-                    optionSelector.PlayerMessageHidden();
+
                 }
 
             } else if (optionSelector.SelectorManager() == 2 && player != null) {
