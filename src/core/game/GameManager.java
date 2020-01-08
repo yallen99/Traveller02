@@ -22,7 +22,6 @@ public class GameManager {
     DataManager dataManager;
     ArrayList<GameObject> loadedObjects;
     ArrayList<GameObject> collectables;
-//    ArrayList<GameObject> deletionList;
     JSONArray levelObjectsArray;
     String itemType = "Platform";
     private Player player;
@@ -31,7 +30,6 @@ public class GameManager {
     private boolean level2 = false;
     private boolean level3 = false;
     private boolean activeFinishPoint = false;
- //   private  boolean collect = false;
     private boolean levelFinished = false;
 
 
@@ -94,7 +92,6 @@ public class GameManager {
 
     private void CheckLevelCollisions() {
         player.startOfLoop();
-        //for(GameObject gameObject: loadedObjects){
         for (int i = 0; i < loadedObjects.size(); i++) {
             GameObject gameObject = loadedObjects.get(i);
             if (gameObject.GetTag() == ObjectTags.PLAYER) {
@@ -107,19 +104,6 @@ public class GameManager {
                 player.CollisionDown(gameObject);
                 player.CollisionLeft(gameObject);
                 player.CollisionRight(gameObject);
-//            if(!player.CollisionUp(gameObject)){
-//                // has a collision
-//                return;
-//            }
-//             if(!player.CollisionDown(gameObject)){
-//                return;
-//            }
-//           if(!player.CollisionLeft(gameObject)){
-//                return;
-//            }
-//           if(!player.CollisionRight(gameObject)){
-//                return;
-//            }
             }
             player.CheckSpecialTileCollision(gameObject);
 
@@ -127,8 +111,6 @@ public class GameManager {
             if (player.CheckSpecialTileCollision(gameObject) && gameObject.GetTag() == ObjectTags.COLLECTABLE) {
                 collectables.remove(gameObject);
                 loadedObjects.remove(gameObject);
-//                deletionList = new ArrayList<GameObject>();
-//                deletionList.add(gameObject);
                 System.out.println(collectables.size());
 
             }
@@ -137,8 +119,6 @@ public class GameManager {
                 levelFinished = true;
             }
         }
-//        loadedObjects.remove(deletionList);
-//        deletionList.removeAll(deletionList);
     }
 
     public boolean IsLevelFnished(){
@@ -171,9 +151,6 @@ public class GameManager {
         if(player.Blocked()){
             optionSelector.GameOverScene();
         }
-
-        // System.out.println(collectables.size());
-       // System.out.println(activeFinishPoint);
     }
 
     ///////////////////////////////////// LEVEL 2 /////////////////////////////////////
@@ -189,13 +166,9 @@ public class GameManager {
         CheckForCollectables();
         player.CheckNewPlatformsCollision();
 
-
         if(player.Blocked()){
             optionSelector.GameOverScene();
         }
-
-        //System.out.println(collectables.size());
-        //System.out.println(activeFinishPoint);
     }
 
     //////////////////////////////////// LEVEL 3 /////////////////////////////////////
@@ -214,9 +187,6 @@ public class GameManager {
         if(player.Blocked()){
             optionSelector.GameOverScene();
         }
-
-       // System.out.println(collectables.size());
-       // System.out.println(activeFinishPoint);
     }
 
     ///////////////////////////////////// LEVEL SELECTOR //////////////////////////////
@@ -227,7 +197,6 @@ public class GameManager {
         optionSelector.CreateSelectorUI();
         sceneManager.linkScenes();
     }
-
     private void CheckForSelectorButtons() {
         parent.fill(242, 233, 189);
         parent.noStroke();
@@ -277,7 +246,6 @@ public class GameManager {
         playerController.checkInput();
     }
     private void updateCanvas() {
-       // parent.background(0);
         for(GameObject gameObject : loadedObjects){
             gameObject.updatePosition();
         }

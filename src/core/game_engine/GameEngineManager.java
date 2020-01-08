@@ -37,5 +37,7 @@ public class GameEngineManager {
             optionSelector = null;
             levelEditor.SaveOnSlot();
         }
+        else{return;}
+
     }
 }

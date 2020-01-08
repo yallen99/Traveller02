@@ -29,7 +29,7 @@ public class Main extends PApplet
 }
 
 
-//todo
+//done
 // add a back in editor
 // add box colliders
 // add player functionality

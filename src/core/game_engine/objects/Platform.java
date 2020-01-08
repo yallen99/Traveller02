@@ -1,7 +1,6 @@
 package core.game_engine.objects;
 
 import core.game_engine.GameObject;
-import core.game_engine.data_management.Serializable;
 import processing.core.PApplet;
 import processing.data.JSONObject;
 
@@ -14,6 +13,7 @@ public class Platform extends GameObject {
 
     @Override
     public void nameEntity() {
+//Naming Objects to test @Override
     }
 
     @Override

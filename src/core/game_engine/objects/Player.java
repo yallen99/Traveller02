@@ -121,7 +121,7 @@ public class Player extends GameObject implements Movable {
 
     }
 
-
+    // for special tiles
     public boolean CheckSpecialTileCollision(GameObject otherObject){
         if(otherObject.getPoint().getY() == point.getY() &&
             otherObject.getPoint().getX() == point.getX()){
@@ -130,11 +130,13 @@ public class Player extends GameObject implements Movable {
         return false;
     }
 
-public void startOfLoop(){
+    public void startOfLoop(){
     topFree = true; leftFree = true; rightFree = true; bottomFree = true;
 }
+
     // for platforms
-    public void CollisionUp(@NotNull GameObject otherObject) {
+
+    // ************************** COLLISION 1ST TRY ************************************
 //        if(((this.getBottomRight().GetX() >= otherObject.getTopLeft().GetX() &&
 //           this.getBottomRight().GetX() <= otherObject.getTopRight().GetX()) &&
 //           (this.getBottomRight().GetY() >= otherObject.getTopLeft().GetY() &&
@@ -149,29 +151,7 @@ public void startOfLoop(){
 //           if(this.getPoint() == otherObject.getPoint()){
 //
 //           }
-
-        //add here the 2d array loop
-//        for(int yPos = getY()-50; yPos <= getY() + 50; yPos +=50){
-//            for(int xPos = getX() -50; xPos <= getX() + 50; yPos +=50){
-
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////////
-if(!topFree) return;
-                if(topLeft.getY() <= otherObject.getBottomLeft().getY() &&
-                        topRight.getY() <= otherObject.getBottomRight().getY() &&
-                        point.getY() - otherObject.getPoint().getY() == 50 &&
-                        point.getX() == otherObject.getPoint().getX()){
-                    topFree = false;
-                }
-                else {
-//                    if(!topFree && topLeft.getY() >= otherObject.getBottomLeft().getY() &&
-//                        topRight.getY() >= otherObject.getBottomRight().getY() &&
-//                        point.getY() - otherObject.getPoint().getY() != 50 &&
-//                        point.getX() == otherObject.getPoint().getX()){
-                    topFree = true;
-                }
-
-            }
+// *************************** COLLISION 2ND TRY ***********************************
 //        topFree = true;
 //        for (int yPos = otherObject.getY(); yPos<=this.getY()+50 && yPos>=this.getY() - 50; yPos+=50) {
 //            if (this.point.getY() - 50 == otherObject.getPoint().getY()
@@ -186,6 +166,19 @@ if(!topFree) return;
 //
 //            }
 //        }
+    public void CollisionUp(@NotNull GameObject otherObject) {
+                if(!topFree) return;
+                if(topLeft.getY() <= otherObject.getBottomLeft().getY() &&
+                        topRight.getY() <= otherObject.getBottomRight().getY() &&
+                        point.getY() - otherObject.getPoint().getY() == 50 &&
+                        point.getX() == otherObject.getPoint().getX()){
+                    topFree = false;
+                }
+                else {
+                    topFree = true;
+                }
+
+            }
     public void CollisionDown(@NotNull GameObject otherObject){
         if(!bottomFree) return;
                 if (bottomLeft.getY() >= otherObject.getTopLeft().getY() &&
@@ -193,17 +186,9 @@ if(!topFree) return;
                         otherObject.getPoint().getY() - point.getY() == 50 &&
                         point.getX() == otherObject.getPoint().getX()) {
                     bottomFree = false;
-
                 } else {
-//                    if (!bottomFree && bottomLeft.getY() < otherObject.getTopLeft().getY() &&
-//                        bottomRight.getY() < otherObject.getTopRight().getY() &&
-//                        otherObject.getPoint().getY() - point.getY() != 50 &&
-//                        point.getX() == otherObject.getPoint().getX()) {
                     bottomFree = true;
                 }
-
-
-
     }
     public void CollisionLeft(@NotNull GameObject otherObject) {
 
@@ -215,10 +200,6 @@ if(!topFree) return;
             //  System.out.println("SOMETHING ON LEFT");
             leftFree = false;
         } else {
-//                    if (!leftFree && leftTop.getX() >= otherObject.getTopRight().getX() &&
-//                        leftBottom.getX() >= otherObject.getBottomRight().getX() &&
-//                        point.getX() - otherObject.getPoint().getX() != 50 &&
-//                        point.getY() == otherObject.getPoint().getY()) {
             leftFree = true;
         }
 
@@ -232,15 +213,8 @@ if(!topFree) return;
             //  System.out.println("SOMETHING ON RIGHT");
             rightFree = false;
         } else {
-//                    if (!rightFree && rightTop.getX() <= otherObject.getTopLeft().getX() &&
-//                        rightBottom.getX() <= otherObject.getBottomLeft().getX() &&
-//                        otherObject.getPoint().getX() - point.getX() != 50 &&
-//                        point.getY() == otherObject.getPoint().getY()) {
             rightFree = true;
         }
 
     }
-
-
-
 }

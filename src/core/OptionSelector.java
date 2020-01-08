@@ -266,7 +266,7 @@ public class OptionSelector {
         //editor messages
          public void PlayerWarningMessage(){
         parent.fill(255, 0,0);
-        parent.textSize(15);
+        parent.textSize(20);
         parent.text("Please put the player last!", 300, 20);
     }
          public void PLayerMessageDisplayed(){

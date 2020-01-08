@@ -19,7 +19,6 @@ public class SceneManager {
     public void linkScenes() {
         gameManager = new GameManager(parent);
 
-
         if (ActiveScene() == "Main Menu") {
             optionSelector = new OptionSelector(parent);
             if (optionSelector.SelectorManager() == 10)  {
@@ -79,9 +78,6 @@ public class SceneManager {
                 scene = "Main Menu";
             }
         }
-
-//        else if(ActiveScene() == "Clear Data"){
-//        }
     }
 }
 

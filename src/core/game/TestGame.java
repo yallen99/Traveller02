@@ -11,7 +11,7 @@ public class TestGame {
     GameManager gameManager;
     DataManager dataManager;
 
-
+    //desperation calls: sorting visuals thru bools
     private boolean editorStarted = false;
     private boolean editorBackground = false;
 
@@ -33,7 +33,6 @@ public class TestGame {
     public void startGame() {
         initialize_classes();
         dataManager.loadLevelFile();
-
         if (sceneManager.ActiveScene() == "Main Menu") {
             gameManager.start();
         }
@@ -43,6 +42,7 @@ public class TestGame {
         sceneManager.linkScenes();
         if (sceneManager.ActiveScene() == "Main Menu") {
             editorBackground = false;
+            editorStarted = false;
             gameManager.updateMenu();
         } else if (sceneManager.ActiveScene() == "Level 1") {
             gameManager.updateLevel1();

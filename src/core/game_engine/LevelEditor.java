@@ -29,7 +29,6 @@ public class LevelEditor {
     }
 
     public void snapObject(float x,float y) {
-       // System.out.println(objectsOnScreen.size());
         dataManager = new DataManager(parent);
 
 
@@ -78,12 +77,8 @@ public class LevelEditor {
                 }
             }
         }
-        updateCanvas();
     }
 
-    private void updateCanvas(){
-
-    }
     public void DisplaySaveLevel(){
         if(optionSelector.KeyCheck() == 10){
             saving = true;
@@ -93,7 +88,6 @@ public class LevelEditor {
     public boolean IsSaving(){
         return saving;
     }
-
     public void SaveOnSlot(){
         if(parent.keyCode == 88 && saving){
             dataManager.saveGameObjects(objectsOnScreen, "Level 2");
@@ -107,29 +101,6 @@ public class LevelEditor {
         }
     }
 
-    private void DisplayLevelSlotOptions(){
-        parent.background(0);
-        parent.fill(255,200,101);
-        parent.noStroke();
-        parent.rectMode(parent.CENTER);
-        parent.rect(400,400,600,200);
-        parent.fill(0);
-        parent.textSize(30);
-        parent.text(" Click X to save on Slot 1 \n Click Y to save on Slot 2",170, 420);
-        parent.fill(0);
-        parent.textSize(40);
-        parent.text(" SAVE LEVEL",250, 360);
-
-    }
-    private void DisplayLevelSavedMessage(){
-        parent.fill(255,200,101);
-        parent.noStroke();
-        parent.rectMode(parent.CENTER);
-        parent.rect(400,400,600,200);
-        parent.fill(0);
-        parent.textSize(50);
-        parent.text(" LEVEL SAVED ",230, 410);
-    }
     private boolean isGridEmpty(int x,int y) {
         for(GameObject gameObject : objectsOnScreen){
             if(gameObject.getX() == x && gameObject.getY() == y){
@@ -171,8 +142,31 @@ public class LevelEditor {
         }
     }
 
-    public void removeObject(GameObject otherObject){
-        objectsOnScreen.remove(otherObject);
+    //SAVING UI
+    private void DisplayLevelSlotOptions(){
+        parent.background(0);
+        parent.fill(255,200,101);
+        parent.noStroke();
+        parent.rectMode(parent.CENTER);
+        parent.rect(400,400,600,200);
+        parent.fill(0);
+        parent.textSize(30);
+        parent.text(" Click X to save on Slot 1 \n Click Y to save on Slot 2",170, 420);
+        parent.fill(0);
+        parent.textSize(40);
+        parent.text(" SAVE LEVEL",250, 360);
+
+    }
+    private void DisplayLevelSavedMessage(){
+        parent.fill(255,200,101);
+        parent.noStroke();
+        parent.rectMode(parent.CENTER);
+        parent.rect(400,400,600,200);
+        parent.fill(0);
+        parent.textSize(50);
+        parent.text(" LEVEL SAVED ",230, 410);
+        parent.textSize(20);
+        parent.text("Press Backspace to return\n         to Main Menu", 280, 450);
     }
 
 }
