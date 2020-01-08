@@ -53,7 +53,7 @@ public class OptionSelector {
               selector = 12;
           }
           else if(KeyCheck() == 40) {
-             //Quit
+             //Save
               selector = 13;
           }
              //BACKSPACE = BACK -- key 8
@@ -264,8 +264,8 @@ public class OptionSelector {
         }
 
         //editor messages
-         public void PlayerWarningMessage(){
-        parent.fill(255, 0,0);
+         public void PlayerWarningMessage(int R, int G, int B){
+        parent.fill(R, G,B);
         parent.textSize(20);
         parent.text("Please put the player last!", 300, 20);
     }
@@ -315,11 +315,50 @@ public class OptionSelector {
             parent.fill(0);
             parent.rectMode(parent.CORNER);
             parent.rect(0, 0, 900, 900);
-            parent.fill(255,200,101);
+            parent.fill(255,0,0);
             parent.textSize(50);
             parent.text("GAME OVER", 250, 300);
             parent.fill(242, 233, 189);
             parent.textSize(25);
             parent.text("Click Backspace to return \n     to the main menu", 250, 400);
         }
+
+    public void DisplayLevelSlotOptions(){
+        parent.background(0);
+        parent.fill(255,200,101);
+        parent.noStroke();
+        parent.rectMode(parent.CENTER);
+        parent.rect(400,400,600,200);
+        parent.fill(0);
+        parent.textSize(30);
+        parent.text(" Click X to save on Slot 1 \n Click Y to save on Slot 2",170, 420);
+        parent.fill(0);
+        parent.textSize(40);
+        parent.text(" SAVE LEVEL",250, 360);
+
+    }
+    public void DisplayLevelSavedMessage(){
+        parent.fill(255,200,101);
+        parent.noStroke();
+        parent.rectMode(parent.CENTER);
+        parent.rect(400,400,600,200);
+        parent.fill(0);
+        parent.textSize(50);
+        parent.text(" LEVEL SAVED ",230, 410);
+        parent.textSize(20);
+        parent.text("Press Backspace to return\n         to Main Menu", 280, 450);
+    }
+
+    public void instructions(){
+        parent.fill(255, 200, 101);
+        parent.noStroke();
+        parent.textSize(20);
+        parent.text("Move with W A S D\nDon't get blocked!", 500, 700);
+        parent.fill(64, 29, 9);
+        parent.noStroke();
+        parent.rectMode(parent.CORNER);
+        parent.rect(470,710,25,25);
+        parent.rect(680,710,25,25);
+
+    }
 }

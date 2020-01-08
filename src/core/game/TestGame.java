@@ -56,10 +56,10 @@ public class TestGame {
                 optionSelector.CongratsScreen();
             }
         } else if (sceneManager.ActiveScene() == "Level 3") {
-            gameManager.updateLevel3();
-            if(gameManager.IsLevelFnished()){
-                optionSelector.CongratsScreen();
-            }
+              gameManager.updateLevel3();
+             if(gameManager.IsLevelFnished()) {
+                 optionSelector.CongratsScreen();
+          }
         } else if (sceneManager.ActiveScene() == "Editor") {
             if (!editorBackground) {
                 parent.fill(0);

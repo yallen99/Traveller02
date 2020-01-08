@@ -26,12 +26,12 @@ public class GameManager {
     String itemType = "Platform";
     private Player player;
     PlayerController playerController;
+
     private boolean level1 = false;
     private boolean level2 = false;
     private boolean level3 = false;
     private boolean activeFinishPoint = false;
     private boolean levelFinished = false;
-
 
 
     public void start(){
@@ -121,6 +121,7 @@ public class GameManager {
         }
     }
 
+
     public boolean IsLevelFnished(){
         return levelFinished;
     }
@@ -133,6 +134,8 @@ public class GameManager {
             parent.rect(0,0, 900,900);
             optionSelector.CreatorUI();
             optionSelector.Title();
+
+            level1 = false; level2 = false; level3 = false; levelFinished = false;
     }
 
     /////////////////////////////////////// LEVEL 1 ///////////////////////////////////
@@ -147,7 +150,7 @@ public class GameManager {
         CheckForCollectables();
         CheckLevelCollisions();
         player.CheckNewPlatformsCollision();
-
+        displayK();
         if(player.Blocked()){
             optionSelector.GameOverScene();
         }
@@ -155,17 +158,19 @@ public class GameManager {
 
     ///////////////////////////////////// LEVEL 2 /////////////////////////////////////
     public void updateLevel2(){
+        //start
         if(!level2){
         dataManager.loadLevelFile();
         CreateLevelLayout();
         loadLevelObjects("Level 2");
         level2 = true;
         }
+        //update
         updateCanvas();
         CheckLevelCollisions();
         CheckForCollectables();
         player.CheckNewPlatformsCollision();
-
+displayK();
         if(player.Blocked()){
             optionSelector.GameOverScene();
         }
@@ -183,7 +188,7 @@ public class GameManager {
         CheckForCollectables();
         CheckLevelCollisions();
         player.CheckNewPlatformsCollision();
-
+displayK();
         if(player.Blocked()){
             optionSelector.GameOverScene();
         }
@@ -248,6 +253,37 @@ public class GameManager {
     private void updateCanvas() {
         for(GameObject gameObject : loadedObjects){
             gameObject.updatePosition();
+        }
+    }
+
+    //UI - couldn't be added to option selector cause it's linked to collectables array
+    private void displayK(){
+        parent.fill(0);
+        parent.noStroke();
+        parent.rectMode(parent.CORNER);
+        parent.rect(0,650,800,100);
+
+        optionSelector.instructions();
+        parent.fill(255, 200, 101);
+        parent.noStroke();
+        parent.textSize(20);
+        parent.text(collectables.size(), 100,700);
+        parent.text("Keys to collect  ->", 120, 700);
+        parent.fill(88, 61, 140);
+        parent.noStroke();
+        parent.rectMode(parent.CORNER);
+        parent.rect(300,680,25,25);
+
+
+        if(collectables.size() <=0){
+            parent.fill(255, 200, 101);
+            parent.noStroke();
+            parent.textSize(20);
+            parent.text("Proceed to   ->", 120, 750);
+            parent.fill(71, 217, 199);
+            parent.noStroke();
+            parent.rectMode(parent.CORNER);
+            parent.rect(270,725,25,25);
         }
     }
 }

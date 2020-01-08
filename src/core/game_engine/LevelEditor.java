@@ -46,7 +46,7 @@ public class LevelEditor {
             }
             //create player
             if (optionSelector.SelectorManager() == 2 && player == null) {
-                optionSelector.PlayerWarningMessage();
+                    optionSelector.PlayerWarningMessage(255, 0,0);
                 if (isGridEmpty(roundedX, roundedY) && parent.mousePressed) {
                     player = new Player(parent, roundedX, roundedY);
                     objectsOnScreen.add(player);
@@ -55,6 +55,7 @@ public class LevelEditor {
 
             } else if (optionSelector.SelectorManager() == 2 && player != null) {
                 optionSelector.PLayerMessageDisplayed();
+
             }
 
             //create finish Point
@@ -82,22 +83,25 @@ public class LevelEditor {
     public void DisplaySaveLevel(){
         if(optionSelector.KeyCheck() == 10){
             saving = true;
-            DisplayLevelSlotOptions();
+            optionSelector.DisplayLevelSlotOptions();
         }
     }
     public boolean IsSaving(){
         return saving;
     }
+
     public void SaveOnSlot(){
         if(parent.keyCode == 88 && saving){
             dataManager.saveGameObjects(objectsOnScreen, "Level 2");
-            DisplayLevelSavedMessage();
+            optionSelector.DisplayLevelSavedMessage();
             saving = false;
+
         }
         else if(parent.keyCode == 89 && saving){
             dataManager.saveGameObjects(objectsOnScreen, "Level 3");
-            DisplayLevelSavedMessage();
+            optionSelector.DisplayLevelSavedMessage();
             saving = false;
+
         }
     }
 
@@ -140,33 +144,6 @@ public class LevelEditor {
         if(parent.keyCode == 17){
             clearing = false;
         }
-    }
-
-    //SAVING UI
-    private void DisplayLevelSlotOptions(){
-        parent.background(0);
-        parent.fill(255,200,101);
-        parent.noStroke();
-        parent.rectMode(parent.CENTER);
-        parent.rect(400,400,600,200);
-        parent.fill(0);
-        parent.textSize(30);
-        parent.text(" Click X to save on Slot 1 \n Click Y to save on Slot 2",170, 420);
-        parent.fill(0);
-        parent.textSize(40);
-        parent.text(" SAVE LEVEL",250, 360);
-
-    }
-    private void DisplayLevelSavedMessage(){
-        parent.fill(255,200,101);
-        parent.noStroke();
-        parent.rectMode(parent.CENTER);
-        parent.rect(400,400,600,200);
-        parent.fill(0);
-        parent.textSize(50);
-        parent.text(" LEVEL SAVED ",230, 410);
-        parent.textSize(20);
-        parent.text("Press Backspace to return\n         to Main Menu", 280, 450);
     }
 
 }
